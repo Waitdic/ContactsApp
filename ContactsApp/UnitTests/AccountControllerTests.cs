@@ -27,6 +27,21 @@ namespace UnitTests
             Assert.True(check);
         }
 
+        [Fact]
+        public void GetContactTest()
+        {
+            // Arrange
+            var manager = new ContactManager();
+
+            // Act
+            var contact = manager.GetContact();
+            
+            Assert.NotNull(contact);
+            Assert.Equal(contact.Email, "danis161616@yandex.ru");
+            Assert.Equal(contact.Phone, "8-111-111-11-11");
+            Assert.Equal(contact.Vk, "daniska1616");
+        }
+
         private Contact AddNewContact()
         {
             return new Contact

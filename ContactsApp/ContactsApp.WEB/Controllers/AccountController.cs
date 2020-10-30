@@ -21,9 +21,18 @@ namespace ContactsApp.WEB.Controllers
         [HttpGet]
         public ActionResult<List<Contact>> ContactsList()
         {
-            return View(new List<Contact> {this.contactManager.GetContacts()});
+            return null;
         }
 
+        /// <summary>Получить контакт.</summary>
+        /// <returns>Контакт.</returns>
+        [HttpGet]
+        public ActionResult<Contact> GetContact()
+        {
+            return this.contactManager.GetContact();
+        }
+
+        /// <summary>Добавить контакт.</summary>
         [HttpPut]
         [CustomExceptionFilter]
         public IActionResult AddContact(Contact contact)

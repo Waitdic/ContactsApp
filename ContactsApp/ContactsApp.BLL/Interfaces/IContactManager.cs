@@ -20,8 +20,8 @@ namespace ContactsApp.BLL.Interfaces
         /// <remarks>Список контактов.</remarks>
         ///List<Contact> GetContacts();
 
-        /// <summary>Добавить контакт.</summary>
-        /// <remarks>Список контактов.</remarks>
-        Contact GetContacts();
+        /// <summary>Получить контакт.</summary>
+        /// <remarks>Контактов.</remarks>
+        Contact GetContact();
     }
 }

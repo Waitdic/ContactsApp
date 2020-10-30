@@ -22,7 +22,7 @@ namespace ContactsApp.BLL.Models
 
         }
 
-        public Contact GetContacts()
+        public Contact GetContact()
         {
             return this.Deserializer();
         }
