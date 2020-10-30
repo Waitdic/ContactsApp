@@ -1,0 +1,32 @@
+﻿@model List<ContactsApp.BLL.Models.Contact>;
+
+<h1>ContactApp</h1>
+
+<div align="left" method="get">
+    <h3>Контакты</h3>
+
+    <div class="list-group-horizontal-lg">
+        <table>
+            @foreach (var contact in Model)
+            {
+                @if (contact != null)
+                 {
+                     <tr>
+                         <td>
+                             contact.Surname;
+                         </td>
+                     </tr>
+                 }
+            }
+        </table>
+    </div>
+    
+    <div class="btn-light">
+        <form method="post">
+            <div></div>
+            <table></table>
+        </form>
+        
+    </div>
+</div>
+
