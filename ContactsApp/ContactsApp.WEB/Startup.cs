@@ -1,3 +1,5 @@
+using ContactsApp.BLL.Interfaces;
+using ContactsApp.BLL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +20,8 @@ namespace ContactsApp.WEB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddTransient<IContactManager, ContactManager>();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -28,22 +32,20 @@ namespace ContactsApp.WEB
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                // app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseRouting();
-
+            app.UseCookiePolicy();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+           {
+               endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Account}/{action=ContactsList}");
+           });
         }
     }
 }
