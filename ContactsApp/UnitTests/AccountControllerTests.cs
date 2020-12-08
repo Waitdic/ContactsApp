@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ContactsApp.BLL.Models;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace UnitTests
         public void AddNewContactTest()
         {
             // Arrange
-            var manager = new ContactManager();
+            var manager = new ContactManager(new ContactRepository());
 
             // Act
             bool check;
@@ -31,10 +32,10 @@ namespace UnitTests
         public void GetContactTest()
         {
             // Arrange
-            var manager = new ContactManager();
+            var manager = new ContactManager(new ContactRepository());
 
             // Act
-            var contact = manager.GetContact();
+            var contact = manager.GetContacts().LastOrDefault();
             
             Assert.NotNull(contact);
             Assert.Equal(contact.Email, "danis161616@yandex.ru");
@@ -44,8 +45,10 @@ namespace UnitTests
 
         private Contact AddNewContact()
         {
+            var repository = new ContactRepository();
             return new Contact
             {
+                Id = repository.GetContacts().Count + 1,
                 Name = "Name" + Guid.NewGuid().ToString(),
                 Surname = "Surname" + Guid.NewGuid().ToString(),
                 Birthday = DateTime.Now.Date,

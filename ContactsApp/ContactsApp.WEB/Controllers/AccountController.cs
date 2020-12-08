@@ -21,15 +21,25 @@ namespace ContactsApp.WEB.Controllers
         [HttpGet]
         public ActionResult<List<Contact>> ContactsList()
         {
-            return null;
+            return View(this.contactManager.GetContacts());
         }
 
         /// <summary>Получить контакт.</summary>
         /// <returns>Контакт.</returns>
         [HttpGet]
-        public ActionResult<Contact> GetContact()
+        [CustomExceptionFilter]
+        public ActionResult<Contact> GetContact(int id)
         {
-            return this.contactManager.GetContact();
+            return null;
+            // return View(this.contactManager.GetContactById(id));
+        }
+
+        /// <summary>Добавить контакт.</summary>
+        [HttpGet]
+        [CustomExceptionFilter]
+        public IActionResult AddContact()
+        {
+            return PartialView(new Contact());
         }
 
         /// <summary>Добавить контакт.</summary>
@@ -38,7 +48,7 @@ namespace ContactsApp.WEB.Controllers
         public IActionResult AddContact(Contact contact)
         {
             this.contactManager.AddContact(contact);
-            return null;
+            return Redirect("ContactsList");
         }
     }
 }

@@ -3,7 +3,7 @@ using ContactsApp.BLL.Models;
 
 namespace ContactsApp.BLL.Interfaces
 {
-    public interface IContactManager
+    public interface IContactRepository
     {
         /// <summary>
         /// Добавить контакт.
@@ -29,10 +29,5 @@ namespace ContactsApp.BLL.Interfaces
         /// Получить список контактов.
         /// </summary>
         List<Contact> GetContacts();
-
-        /// <summary>
-        /// Получить контакт по Id.
-        /// </summary>
-        Contact GetContactById(int id);
     }
 }

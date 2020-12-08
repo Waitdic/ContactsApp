@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 
 using ContactsApp.BLL.Interfaces;
 
@@ -7,9 +6,17 @@ namespace ContactsApp.BLL.Models
 {
     public class ContactManager : IContactManager
     {
+        private readonly IContactRepository contactRepository;
+
+        public ContactManager(IContactRepository contactRepository)
+        {
+            this.contactRepository = contactRepository;
+        }
+
         public void AddContact(Contact contact)
         {
-            this.Serializer(contact);
+            contact.Id = 123;
+            this.contactRepository.AddContact(contact);
         }
 
         public void EditContact(Contact contact)
@@ -22,29 +29,14 @@ namespace ContactsApp.BLL.Models
 
         }
 
-        public Contact GetContact()
+        public List<Contact> GetContacts()
         {
-            return this.Deserializer();
+            return this.contactRepository.GetContacts();
         }
 
-        private void Serializer(Contact contact)
+        public Contact GetContactById(int id)
         {
-            var serializer = new JsonSerializer();
-            using StreamWriter sw = new StreamWriter(@"E:\учеба\Git\ContactsApp\DB\json.txt");
-            using (JsonWriter writer = new JsonTextWriter(sw))
-            {
-                serializer.Serialize(writer, contact);
-            }
-        }
-
-        private Contact Deserializer()
-        {
-            var deserializer = new JsonSerializer();
-            using var sr = new StreamReader(@"E:\учеба\Git\ContactsApp\DB\json.txt");
-            using (var reader = new JsonTextReader(sr))
-            {
-                return deserializer.Deserialize<Contact>(reader);
-            }
+            return null;
         }
     }
 }

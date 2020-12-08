@@ -19,8 +19,10 @@ namespace ContactsApp.WEB
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddTransient<IContactManager, ContactManager>();
+            services.AddTransient<IContactRepository, ContactRepository>();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddMvc();
         }
 
@@ -32,12 +34,12 @@ namespace ContactsApp.WEB
             }
             else
             {
-                // app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+        
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

@@ -5,12 +5,28 @@ namespace ContactsApp.BLL.Models
 {
     public class Contact
     {
+        private int id;
         private string name;
         private string surname;
         private DateTime birthday;
         private string phone;
         private string email;
         private string vk;
+
+        /// <summary>Id.</summary>
+        public int Id
+        {
+            get => this.id;
+            set
+            {
+                if (!int.TryParse(value.ToString(), out value))
+                {
+                    throw new ArgumentException("Неправильный формат идентификатора!");
+                }
+
+                this.Id = value;
+            }
+        }
 
         /// <summary>Имя.</summary>
         public string Name
