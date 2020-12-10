@@ -6,32 +6,31 @@ using ContactsApp.DAL.Repository;
 using NUnit.Framework;
 using Xunit;
 using Assert = Xunit.Assert;
-//using Contact = ContactsApp.DAL.Models.Contact;
 
 namespace UnitTests
 {
     public class AccountControllerTests
     {
-        [Fact]
-        public void AddNewContactTest()
-        {
-            // Arrange
-            var manager = new ContactsApp.BLL.Models.ContactManager(new ContactRepository());
+        ////[Fact]
+        ////public void AddNewContactTest()
+        ////{
+        ////    // Arrange
+        ////    var manager = new ContactsApp.BLL.Models.ContactManager(new ContactRepository());
 
-            // Act
-            bool check;
-            try
-            {
-                manager.AddContact(AddNewContact());
-                check = true;
-            }
-            catch (Exception)
-            {
-                check = false;
-            }
+        ////    // Act
+        ////    bool check;
+        ////    try
+        ////    {
+        ////        manager.AddContact(AddNewContact());
+        ////        check = true;
+        ////    }
+        ////    catch (Exception)
+        ////    {
+        ////        check = false;
+        ////    }
 
-            Assert.True(check);
-        }
+        ////    Assert.True(check);
+        ////}
 
         [Fact]
         public void GetContactTest()
@@ -41,7 +40,6 @@ namespace UnitTests
 
             // Act
             var contact = manager.GetContacts().LastOrDefault();
-            
             Assert.NotNull(contact);
             Assert.Equal("danis161616@yandex.ru", contact.Email);
             Assert.Equal("8-111-111-11-11", contact.Phone);
