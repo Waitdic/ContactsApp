@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ContactsApp.BLL.Models
+namespace ContactsApp.DAL.Models
 {
     public class Contact
     {
@@ -13,7 +13,9 @@ namespace ContactsApp.BLL.Models
         private string email;
         private string vk;
 
-        /// <summary>Id.</summary>
+        /// <summary>
+        /// Id.
+        /// </summary>
         public int Id
         {
             get => this.id;
@@ -24,11 +26,13 @@ namespace ContactsApp.BLL.Models
                     throw new ArgumentException("Неправильный формат идентификатора!");
                 }
 
-                this.Id = value;
+                this.id = value;
             }
         }
 
-        /// <summary>Имя.</summary>
+        /// <summary>
+        /// Имя.
+        /// </summary>
         public string Name
         {
             get => this.name;
@@ -43,8 +47,10 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        /// <summary>Фамилия.</summary>
-        public string Surname 
+        /// <summary>
+        /// Фамилия.
+        /// </summary>
+        public string Surname
         {
             get => this.surname;
             set
@@ -58,8 +64,10 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        /// <summary>Дата рождения.</summary>
-        public DateTime Birthday 
+        /// <summary>
+        /// Дата рождения.
+        /// </summary>
+        public DateTime Birthday
         {
             get => this.birthday;
             set
@@ -78,7 +86,9 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        /// <summary>Телефонный номер.</summary>
+        /// <summary>
+        /// Телефонный номер.
+        /// </summary>
         public string Phone
         {
             get => this.phone;
@@ -93,7 +103,9 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        /// <summary>Электронная почта.</summary>
+        /// <summary>
+        /// Электронная почта.
+        /// </summary>
         public string Email
         {
             get => this.email;
@@ -110,8 +122,10 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        /// <summary>Вк.</summary>
-        public string Vk 
+        /// <summary>
+        /// Вк.
+        /// </summary>
+        public string Vk
         {
             get => this.vk;
             set
