@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ContactsApp.BLL.Interfaces;
 using ContactsApp.WEB.Errors;
 using ContactsApp.BLL.Models;
-using ContactsApp.DAL.Models;
 
 namespace ContactsApp.WEB.Controllers
 {
@@ -21,8 +20,8 @@ namespace ContactsApp.WEB.Controllers
 
         /// <summary>Получить все контакты все контакты.</summary>
         /// <returns>Список контактов.</returns>
-        [HttpGet]
-        public ActionResult<List<Contact>> GetContacts()
+        [HttpGet("")]
+        public ActionResult<List<ContactViewModel>> GetContacts()
         {
             return this.contactManager.GetContacts();
         }
@@ -30,40 +29,41 @@ namespace ContactsApp.WEB.Controllers
         /// <summary>Получить контакт.</summary>
         /// <param name="id">Id контакта.</param>
         /// <returns>Контакт.</returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         [CustomExceptionFilter]
-        public ActionResult<Contact> GetContact(int id)
+        public ActionResult<ContactViewModel> GetContact(int id)
         {
-            return null;
+            return this.contactManager.GetContactById(id);
         }
 
         /// <summary>Добавить контакт.</summary>
         /// <param name="contact">Контакт.</param>
-        [HttpPut]
+        [HttpPost]
         [CustomExceptionFilter]
-        public IActionResult AddContact(Contact contact)
+        public IActionResult AddContact(ContactViewModel contact)
         {
             this.contactManager.AddContact(contact);
-            return null;
+            return Ok();
         }
 
         /// <summary>Добавить контакт.</summary>
         /// <param name="contact">Контакт</param>
         [HttpPut]
         [CustomExceptionFilter]
-        public IActionResult EditContact(Contact contact)
+        public IActionResult EditContact(ContactViewModel contact)
         {
-            this.contactManager.AddContact(contact);
-            return null;
+            this.contactManager.EditContact(contact);
+            return Ok();
         }
 
         /// <summary>Добавить контакт.</summary>
         /// <param name="id">Id контанта.</param>
-        [HttpPut]
+        [HttpDelete("{id}")]
         [CustomExceptionFilter]
         public IActionResult DeleteContact(int id)
         {
-            return null;
+            this.contactManager.DeleteContact(id);
+            return Ok();
         }
     }
 }

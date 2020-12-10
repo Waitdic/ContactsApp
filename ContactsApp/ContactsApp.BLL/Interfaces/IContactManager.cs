@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ContactsApp.BLL.Models;
-using ContactsApp.DAL.Models;
 
 namespace ContactsApp.BLL.Interfaces
 {
@@ -10,30 +9,30 @@ namespace ContactsApp.BLL.Interfaces
         /// Добавить контакт.
         /// </summary>
         /// <param name="contact">Contact.</param>
-        void AddContact(Contact contact);
+        void AddContact(ContactViewModel contact);
 
         /// <summary>
         /// Изменить контакт.
         /// </summary>
         /// <param name="contact">Contact.</param>
-        void EditContact(Contact contact);
+        void EditContact(ContactViewModel contact);
 
         /// <summary>
         /// Удалить контакт.
         /// </summary>
-        /// <param name="contact">
-        /// Contact.
+        /// <param name="id">
+        /// Id.
         /// </param>
-        void DeleteContact(Contact contact);
+        void DeleteContact(int id);
 
         /// <summary>
         /// Получить список контактов.
         /// </summary>
-        List<Contact> GetContacts();
+        List<ContactViewModel> GetContacts();
 
         /// <summary>
         /// Получить контакт по Id.
         /// </summary>
-        Contact GetContactById(int id);
+        ContactViewModel GetContactById(int id);
     }
 }

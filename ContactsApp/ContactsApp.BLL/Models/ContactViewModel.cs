@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace ContactsApp.DAL.Models
+namespace ContactsApp.BLL.Models
 {
-    public class Contact
+    public class ContactViewModel
     {
-        private int id;
+        private int? id;
         private string name;
         private string surname;
         private DateTime birthday;
@@ -16,18 +16,10 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Id.
         /// </summary>
-        public int Id
+        public int? Id
         {
             get => this.id;
-            set
-            {
-                if (!int.TryParse(value.ToString(), out value))
-                {
-                    throw new ArgumentException("Неправильный формат идентификатора!");
-                }
-
-                this.id = value;
-            }
+            set => this.id = value;
         }
 
         /// <summary>

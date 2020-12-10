@@ -26,6 +26,7 @@ namespace ContactsApp.WEB
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddControllers();
             services.AddTransient<IContactManager, ContactManager>();
             services.AddTransient<IContactRepository, ContactRepository>();
         }
@@ -43,6 +44,12 @@ namespace ContactsApp.WEB
                 app.UseSpaStaticFiles();
             }
             app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "ClientApp";
