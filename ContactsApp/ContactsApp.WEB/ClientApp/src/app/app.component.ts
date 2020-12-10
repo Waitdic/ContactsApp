@@ -28,6 +28,7 @@ export class AppComponent implements OnInit {
         if (this.contact.id == null) {
             this.dataService.addContact(this.contact)
                 .subscribe((data: Contact) => this.contacts.push(data));
+                this.loadContacts();
         } else {
             this.dataService.editContact(this.contact)
                 .subscribe(data => this.loadContacts());
