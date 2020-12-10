@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Linq;
 using ContactsApp.BLL.Models;
+using ContactsApp.DAL.Models;
+using ContactsApp.DAL.Repository;
+using NUnit.Framework;
 using Xunit;
+using Assert = Xunit.Assert;
+//using Contact = ContactsApp.DAL.Models.Contact;
 
 namespace UnitTests
 {
@@ -11,7 +16,7 @@ namespace UnitTests
         public void AddNewContactTest()
         {
             // Arrange
-            var manager = new ContactManager(new ContactRepository());
+            var manager = new ContactsApp.BLL.Models.ContactManager(new ContactRepository());
 
             // Act
             bool check;
@@ -38,9 +43,9 @@ namespace UnitTests
             var contact = manager.GetContacts().LastOrDefault();
             
             Assert.NotNull(contact);
-            Assert.Equal(contact.Email, "danis161616@yandex.ru");
-            Assert.Equal(contact.Phone, "8-111-111-11-11");
-            Assert.Equal(contact.Vk, "daniska1616");
+            Assert.Equal("danis161616@yandex.ru", contact.Email);
+            Assert.Equal("8-111-111-11-11", contact.Phone);
+            Assert.Equal("daniska1616", contact.Vk);
         }
 
         private Contact AddNewContact()

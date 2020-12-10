@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using ContactsApp.BLL.Interfaces;
+using ContactsApp.DAL.Models;
 using Newtonsoft.Json;
 
-namespace ContactsApp.BLL.Models
+namespace ContactsApp.DAL.Repository
 {
     public class ContactRepository : IContactRepository
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ContactsApp.BLL.Models;
+using ContactsApp.DAL.Models;
 
 namespace ContactsApp.BLL.Interfaces
 {

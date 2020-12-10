@@ -1,11 +1,11 @@
 ﻿@{
     ViewData["Title"] = "AddContact";
 }
-@model ContactsApp.BLL.Models.Contact
+@model ContactsApp.DAL.Models.Contact
 
 <h2 class="modal-header">Добавить контакт</h2>
 <div class="container">
-    <form method="post" >
+    <form method="post">
         <p>
             <label>Имя</label>
             <input type="text" value="@Model.Name"/>
@@ -33,4 +33,3 @@
         <p><input class="btn-success" type="submit" value="Создать"/></p>
     </form>
 </div>
-
