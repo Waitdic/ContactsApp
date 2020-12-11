@@ -8,8 +8,6 @@ namespace ContactsApp.DAL.Repository
 {
     public class ContactRepository : IContactRepository
     {
-        private static readonly string FileParth = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).FullName + "\\ContactsApp.DAL\\DB\\json.txt";
-
         public void AddContact(List<Contact> contact)
         {
             this.CheckFile();
@@ -27,7 +25,7 @@ namespace ContactsApp.DAL.Repository
             try
             {
                 var serializer = new JsonSerializer();
-                using StreamWriter sw = new StreamWriter(FileParth);
+                using StreamWriter sw = new StreamWriter(GetFilePath());
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
                     serializer.Serialize(writer, contact);
@@ -44,7 +42,7 @@ namespace ContactsApp.DAL.Repository
             try
             {
                 var deserializer = new JsonSerializer();
-                using var sr = new StreamReader(FileParth);
+                using var sr = new StreamReader(GetFilePath());
                 using (var reader = new JsonTextReader(sr))
                 {
                     return deserializer.Deserialize<List<Contact>>(reader);
@@ -58,10 +56,21 @@ namespace ContactsApp.DAL.Repository
 
         private void CheckFile()
         {
-            if (!File.Exists(FileParth))
+            if (!File.Exists(GetFilePath()))
             {
-                File.Create(FileParth);
+                File.Create(GetFilePath()).Dispose();
             }
+        }
+
+        private static string GetFilePath()
+        {
+            if (Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).FullName.Contains("ContactsApp\\"))
+            {
+                var directoryName = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).FullName;
+                return directoryName.Substring(0, directoryName.LastIndexOf("ContactsApp\\", StringComparison.Ordinal)) + "ContactsApp\\ContactsApp.DAL\\DB\\json.txt";
+            }
+            
+            return Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).FullName + "\\ContactsApp.DAL\\DB\\json.txt";
         }
     }
 }
