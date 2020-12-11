@@ -1,10 +1,10 @@
-<h1>Список моделей</h1>
+<h1>Список контанктов</h1>
 <input type="button" value="Добавить" class="btn btn-default" (click)="add()" />
 <table *ngIf="tableMode; else create" class="table table-striped">
     <thead>
         <tr>
-            <td>Название</td>
             <td></td>
+            <td>Список имен</td>
             <td></td>
             <td>Анкета</td>
         </tr>
@@ -12,7 +12,7 @@
     <tbody>
         <tr *ngFor="let c of contacts">
             <ng-template [ngIf]="contacts?.id != c.id" [ngIfElse]="edit">
-                <td>{{c?.id}}</td>
+                <td>{{c?.id}}</td>  
                 <td>{{c?.name}} {{c?.surname}}</td>
                 <td>
                     <button class="btn btn-sm btn-primary" (click)="editContact(c)">Изменить</button>
