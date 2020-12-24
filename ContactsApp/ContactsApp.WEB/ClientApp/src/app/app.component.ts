@@ -5,7 +5,8 @@ import { Contact } from './contact';
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
-    providers: [DataService]
+    providers: [DataService],
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
  
@@ -28,11 +29,11 @@ export class AppComponent implements OnInit {
         if (this.contact.id == null) {
             this.dataService.addContact(this.contact)
                 .subscribe((data: Contact) => this.contacts.push(data));
-                this.loadContacts();
         } else {
             this.dataService.editContact(this.contact)
                 .subscribe(data => this.loadContacts());
         }
+        this.loadContacts();
         this.cancel();
     }
     editContact(p: Contact) {
@@ -40,14 +41,13 @@ export class AppComponent implements OnInit {
     }
     cancel() {
         this.contact = new Contact();
-        this.tableMode = true;
     }
-    delete(p: Contact) {
-        this.dataService.deleteContact(p.id)
-            .subscribe(data => this.loadContacts());
-    }
-    add() {
-        this.cancel();
-        this.tableMode = false;
+    delete() {
+        if (this.contact.id)
+        {
+            this.dataService.deleteContact(this.contact.id)
+                .subscribe(data => this.loadContacts());
+            this.contact = new Contact();
+        }
     }
 }

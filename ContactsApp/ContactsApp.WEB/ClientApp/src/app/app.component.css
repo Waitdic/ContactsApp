@@ -1,0 +1,41 @@
+h1 {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.grid-lable {
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
+table {
+    padding: 3%;
+}
+
+.contact-style {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 3%;
+    border: 2px solid black;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.grid-button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.table-list {
+    max-width: 725px;
+    max-height: 695px;
+}
+
+.table-questionnaire {
+    max-width: 1095px;
+    max-height: 695px;
+}
+
+.table-scroll {
+    overflow: auto; 
+  }
