@@ -59,17 +59,6 @@ namespace ContactsApp.WEB
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-            
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            //app.UseRouting();
-            //app.UseAuthorization();
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Account}/{action=ContactsList}");
-            //});
         }
     }
 }

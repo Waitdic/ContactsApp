@@ -4,6 +4,7 @@ using ContactsApp.BLL.Models;
 using ContactsApp.DAL.Repository;
 using ContactsApp.WEB.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
 using Xunit;
 using Assert = Xunit.Assert;
 
