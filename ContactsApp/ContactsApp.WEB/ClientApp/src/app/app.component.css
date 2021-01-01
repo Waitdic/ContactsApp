@@ -9,8 +9,14 @@ h1 {
     grid-template-columns: 2fr 3fr;
 }
 
+.grid-questionnaire-tr {    
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+}
+
 table {
     padding: 3%;
+    width: 100%;
 }
 
 .contact-style {
@@ -39,3 +45,15 @@ table {
 .table-scroll {
     overflow: auto; 
   }
+
+
+.questionnaire-td {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+tbody {
+    overflow: scroll;
+}
+
+input.ng-touched.ng-invalid {border:solid rgb(218, 73, 73) 2px;}

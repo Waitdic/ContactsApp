@@ -9,47 +9,150 @@
                     <td><h3>Контакты</h3></td>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let c of contacts" 
+            <tbody class="tbody">
+                <tr *ngFor="let c of contacts"
                 (click)="editContact(c)">
-                    <ng-template [ngIf]="contacts?.id != c.id">
-                        <td>{{::c?.id}}</td>  
-                        <td>{{::c?.name}} {{::c?.surname}}</td>
-                    </ng-template>
+                        <td>{{c?.id}}</td>  
+                        <td>{{c?.name}} {{c?.surname}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     </div>
+    
     <div class="contact-style table-questionnaire">
-        <div class="form-group">
-            <label>Имя</label>
-            <input type="text" [(ngModel)]="contact.name" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label>Фамилия</label>
-            <input type="text" [(ngModel)]="contact.surname" class="form-control" required />
-        </div>
-        <div class="form-group">
-            <label>День рождения</label>
-            <input type="date" [(ngModel)]="contact.birthday" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label>Номер телефона</label>
-            <input type="text" [(ngModel)]="contact.phone" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input type="text" [(ngModel)]="contact.email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label>Ссылка Vk</label>
-            <input type="text" [(ngModel)]="contact.vk" class="form-control" />
-        </div>
-        <div>
-            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
-            <input type="button" value="Очистить" (click)="cancel()" class="btn btn-warning grid-button" />
-            <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
-        </div>
+        <table class="table">
+            <tbody>
+            <tr>
+            <div class="form-group grid-questionnaire-tr">    
+                    <td>
+                    <label>Имя</label>
+                    <input 
+                        type="text" 
+                        [(ngModel)]="contact.name" 
+                        class="form-control" 
+                        name="name" 
+                        #name="ngModel" 
+                        required/>
+                    </td>
+                    <td>
+                    <label></label>
+                    <div [hidden]="name.valid || name.untouched" class="alert alert-danger questionnaire-td">
+                        Обязательное для заполнения
+                    </div>
+                    </td>
+            </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Фамилия</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.surname" 
+                            class="form-control" 
+                            name="surname" 
+                            #surname="ngModel" 
+                            required />
+                    </td>
+                    <td>
+                        <label></label>
+                        <div [hidden]="surname.valid || surname.untouched" class="alert alert-danger questionnaire-td">
+                            Обязательное для заполнения
+                        </div>
+                    </td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                    <label>День рождения</label>
+                    <input 
+                        type="date" 
+                        [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
+                        (ngModelChange)="contact.birthday = $event" 
+                        [value]="contact.birthday | date:'yyyy-MM-dd'" 
+                        class="form-control" 
+                        name="date" 
+                        #date="ngModel" 
+                        required/>
+                    </td>
+                    <td>
+                        <label></label>
+                        <div [hidden]="date.valid || date.untouched" class="alert alert-danger questionnaire-td">
+                            Обязательное для заполнения
+                        </div>
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Номер телефона</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.phone" 
+                            class="form-control" 
+                            name="phone" 
+                            #phone="ngModel" 
+                            required 
+                            pattern="[0-9]{11}"/>
+                    </td>
+                    <td>
+                        <label></label>
+                        <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger questionnaire-td">
+                            Неверный формат
+                        </div>
+                    </td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Email</label>
+                        <input 
+                            type="email" 
+                            [(ngModel)]="contact.email" 
+                            class="form-control" 
+                            #email="ngModel" 
+                            email/>
+                    </td>
+                    <td>
+                        <label></label>
+                        <div [hidden]="phone.valid || email.untouched" class="alert alert-danger questionnaire-td">
+                            Неверный формат
+                        </div>
+                    </td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Ссылка Vk</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.vk" 
+                            class="form-control" />
+                    </td>
+                    <td>
+                        <label></label>
+                        <div></div>
+                    </td>
+                </div>
+            </tr>
+            
+            <tr>
+                <div>
+                    <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
+                    <input type="button" value="Очистить" (click)="cancel()" class="btn btn-warning grid-button" />
+                    <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
+                </div>
+            <tr>
+            </tbody>
+    </table>
     </div>
 </div>

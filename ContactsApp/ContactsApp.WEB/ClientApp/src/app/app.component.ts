@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
  
     contact: Contact = new Contact();   
     contacts: Contact[];               
-    tableMode: boolean = true;          
+    tableMode: boolean = true;              
  
     constructor(private dataService: DataService) { }
  
