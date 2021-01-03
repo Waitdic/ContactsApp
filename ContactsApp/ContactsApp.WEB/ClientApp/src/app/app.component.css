@@ -56,4 +56,4 @@ tbody {
     overflow: scroll;
 }
 
-input.ng-touched.ng-invalid {border:solid rgb(218, 73, 73) 2px;}
+input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}

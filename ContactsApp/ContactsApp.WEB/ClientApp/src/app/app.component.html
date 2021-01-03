@@ -16,6 +16,7 @@
                         <td>{{c?.name}} {{c?.surname}}</td>
                 </tr>
             </tbody>
+            <button (click)="openModal('edit-modal')">Open Modal 1</button>
         </table>
     </div>
     </div>
@@ -37,7 +38,7 @@
                     </td>
                     <td>
                     <label></label>
-                    <div [hidden]="name.valid || name.untouched" class="alert alert-danger questionnaire-td">
+                    <div [hidden]="name.valid || name.untouched || name.pristine" class="alert alert-danger questionnaire-td">
                         Обязательное для заполнения
                     </div>
                     </td>
@@ -58,7 +59,7 @@
                     </td>
                     <td>
                         <label></label>
-                        <div [hidden]="surname.valid || surname.untouched" class="alert alert-danger questionnaire-td">
+                        <div [hidden]="surname.valid || surname.untouched || surname.pristine" class="alert alert-danger questionnaire-td">
                             Обязательное для заполнения
                         </div>
                     </td>
@@ -73,7 +74,6 @@
                         type="date" 
                         [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
                         (ngModelChange)="contact.birthday = $event" 
-                        [value]="contact.birthday | date:'yyyy-MM-dd'" 
                         class="form-control" 
                         name="date" 
                         #date="ngModel" 
@@ -81,7 +81,7 @@
                     </td>
                     <td>
                         <label></label>
-                        <div [hidden]="date.valid || date.untouched" class="alert alert-danger questionnaire-td">
+                        <div [hidden]="date.valid || date.untouched || date.pristine" class="alert alert-danger questionnaire-td">
                             Обязательное для заполнения
                         </div>
                     </td>
@@ -102,7 +102,7 @@
                     </td>
                     <td>
                         <label></label>
-                        <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger questionnaire-td">
+                        <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger questionnaire-td">
                             Неверный формат
                         </div>
                     </td>
@@ -122,7 +122,7 @@
                     </td>
                     <td>
                         <label></label>
-                        <div [hidden]="phone.valid || email.untouched" class="alert alert-danger questionnaire-td">
+                        <div [hidden]="email.valid || email.untouched || email.pristine" class="alert alert-danger questionnaire-td">
                             Неверный формат
                         </div>
                     </td>
@@ -144,7 +144,7 @@
                     </td>
                 </div>
             </tr>
-            
+
             <tr>
                 <div>
                     <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />

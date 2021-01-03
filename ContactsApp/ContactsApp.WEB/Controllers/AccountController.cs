@@ -40,12 +40,12 @@ namespace ContactsApp.WEB.Controllers
         /// <param name="contact">Контакт.</param>
         [HttpPost]
         [CustomExceptionFilter]
-        public IActionResult AddContact(ContactViewModel contact)
+        public ActionResult<List<ContactViewModel>> AddContact(ContactViewModel contact)
         {
             this.contactManager.AddContact(contact);
-            return Ok();
+            return Ok(this.contactManager.GetContacts());
         }
-
+    
         /// <summary>Добавить контакт.</summary>
         /// <param name="contact">Контакт</param>
         [HttpPut]

@@ -1,6 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from './data.service';
 import { Contact } from './contact';
+import { ModalComponent } from './modal/modal.component';
  
 @Component({
     selector: 'app',
@@ -13,8 +15,11 @@ export class AppComponent implements OnInit {
     contact: Contact = new Contact();   
     contacts: Contact[];               
     tableMode: boolean = true;              
- 
-    constructor(private dataService: DataService) { }
+    dataForm: FormGroup;
+
+    constructor(
+        private dataService: DataService,
+        private modalComponent: ModalComponent) { }
  
     ngOnInit() {
         this.loadContacts();    // загрузка данных при старте компонента  
@@ -28,18 +33,18 @@ export class AppComponent implements OnInit {
     save() {
         if (this.contact.id == null) {
             this.dataService.addContact(this.contact)
-                .subscribe((data: Contact) => this.contacts.push(data));
+                .subscribe((data: Contact[]) => this.contacts = data);
         } else {
             this.dataService.editContact(this.contact)
                 .subscribe(data => this.loadContacts());
         }
-        this.loadContacts();
         this.cancel();
     }
     editContact(p: Contact) {
         this.contact = p;
     }
     cancel() {
+        this.dataForm = new FormGroup({firstName: new FormControl('')})
         this.contact = new Contact();
     }
     delete() {
@@ -49,5 +54,9 @@ export class AppComponent implements OnInit {
                 .subscribe(data => this.loadContacts());
             this.contact = new Contact();
         }
+    }
+
+    openModal() {
+        this.modalComponent.open();
     }
 }

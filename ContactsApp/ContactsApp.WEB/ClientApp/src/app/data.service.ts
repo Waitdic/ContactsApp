@@ -22,7 +22,6 @@ export class DataService {
         return this.http.post(this.url, product);
     }
     editContact(product: Contact) {
-  
         return this.http.put(this.url, product);
     }
     deleteContact(id: number) {
