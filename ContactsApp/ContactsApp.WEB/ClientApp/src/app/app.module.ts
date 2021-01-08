@@ -2,13 +2,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
-import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, HttpClientModule],
-    declarations: [AppComponent, ModalComponent],
-    bootstrap: [AppComponent],
-    entryComponents: [ModalComponent]
+    imports: [BrowserModule, FormsModule, HttpClientModule, NgbModule],
+    declarations: [AppComponent],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { }  
