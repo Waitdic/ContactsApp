@@ -17,27 +17,26 @@ namespace UnitTests
         [SetUp]
         public void Initialize()
         {
-            ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\DB\json.txt");
+            ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
         }
 
         /// <summary>
         /// Тест на создание добавления нового контакта.
         /// </summary>
         [Test]
-        public void AddNewContactTest()    
+        public async void AddNewContactTest()    
         {
             // Arrange
             var newContact = this.AddNewContactViewModel();
 
             // Act
             var result = this.accountController.AddContact(newContact);
-            var models = this.contactManager.GetContacts();
+            var model = result..AsEnumerable().OrderBy(x => x.Id).LastOrDefault();;
        
             // Assert
-            Assert.AreEqual(typeof(OkResult), result.GetType());
-            // Assert.Contains(models, x => x.Name == newContact.Name);
-
-            var model = models.FirstOrDefault(x => x.Name == newContact.Name);
+            Assert.AreEqual(typeof(OkResult), result.Result.GetType());
+            Assert.NotNull(model);
+            Assert.AreEqual(newContact.Name, model.Name);
             Assert.AreEqual(newContact.Surname, model.Surname);
             Assert.AreEqual(newContact.Birthday, model.Birthday);
             Assert.AreEqual(newContact.Email, model.Email);
