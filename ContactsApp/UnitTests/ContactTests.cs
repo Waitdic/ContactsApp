@@ -9,12 +9,8 @@ namespace UnitTests
         /// <summary>
         /// Тест на присваивание значений полям класса Contact.
         /// </summary>
-        /// <param name="field">
-        /// Поле класса.
-        /// </param>
-        /// <param name="value">
-        /// Значение.
-        /// </param>
+        /// <param name="field">Поле класса.</param>
+        /// <param name="value">Значение.</param>
         [Test]
         [TestCase("Name", "Name")]
         [TestCase("Surname", "Surname")]
@@ -60,9 +56,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение имени.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
         [Test]
         [TestCase("")]
         [TestCase(null)]
@@ -82,9 +76,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение фамилии.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная.
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
         [Test]
         [TestCase("")]
         [TestCase(null)]
@@ -104,12 +96,8 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение даты.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная.
-        /// </param>
-        /// /// <param name="message">
-        /// Ошибка.
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
+        /// <param name="message">Ошибка.</param>
         [Test]
         // [TestCase("фыв", "Дата рождения имеет неверный формат")]
         [TestCase(null, "Дата рождения не может быть больше настоящего времени")]
@@ -130,12 +118,8 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение номера.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная.
-        /// </param>
-        /// <param name="message">
-        /// Ошибка.
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
+        /// <param name="message">Ошибка.</param>
         [Test]
         [TestCase("", "Телефон не был не было вписан!")]
         [TestCase(null, "Телефон не был не было вписан!")]
@@ -159,9 +143,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение Email.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная.
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
         [Test]
         [TestCase("asd@gmail")]
         [TestCase("@gmail")]
@@ -183,9 +165,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение Vk.
         /// </summary>
-        /// <param name="value">
-        /// Присваиваемая переменная.
-        /// </param>
+        /// <param name="value">Присваиваемая переменная.</param>
         [Test]
         [TestCase("")]
         [TestCase(null)]

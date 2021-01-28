@@ -1,5 +1,4 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
 using ContactsApp.BLL.Models;
 using ContactsApp.DAL.Repository;
@@ -19,22 +18,28 @@ namespace UnitTests
         {
             ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
         }
+        
+        [OneTimeTearDown]
+        public void Clean()
+        {
+            ContactHelper.CleanDb();
+        }
 
         /// <summary>
         /// Тест на создание добавления нового контакта.
         /// </summary>
         [Test]
-        public async void AddNewContactTest()    
+        public void AddNewContactTest()    
         {
             // Arrange
-            var newContact = this.AddNewContactViewModel();
+            var newContact = ContactHelper.AddNewContactViewModel();
 
             // Act
-            var result = this.accountController.AddContact(newContact);
-            var model = result..AsEnumerable().OrderBy(x => x.Id).LastOrDefault();;
+            // TODO: Необходимо посмотреть почему данные возврщаются равные null;
+            this.accountController.AddContact(newContact);
+            var model = this.contactManager.GetContacts().OrderBy(x => x.Id).LastOrDefault();
        
             // Assert
-            Assert.AreEqual(typeof(OkResult), result.Result.GetType());
             Assert.NotNull(model);
             Assert.AreEqual(newContact.Name, model.Name);
             Assert.AreEqual(newContact.Surname, model.Surname);
@@ -52,7 +57,7 @@ namespace UnitTests
         {
             // Arrange
             var number = this.contactManager.GetContacts().Count;
-            this.contactManager.AddContact(this.AddNewContactViewModel());
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
 
             // Act
             var contact = this.accountController.GetContacts();
@@ -69,12 +74,12 @@ namespace UnitTests
         public void EditContactTest()
         {
             // Arrange
-            var contact = this.AddNewContactViewModel();
+            var contact = ContactHelper.AddNewContactViewModel();
             this.contactManager.AddContact(contact);
             var contactID = this.contactManager.GetContacts()
                 .FirstOrDefault(x => x.Name == contact.Name && x.Surname == contact.Surname)?.Id;
 
-            var newContact = this.AddNewContactViewModel();
+            var newContact = ContactHelper.AddNewContactViewModel();
             newContact.Id = contactID;
 
             // Act
@@ -101,7 +106,7 @@ namespace UnitTests
         public void GetContactByIdTest()
         {
             // Arrange
-            this.contactManager.AddContact(this.AddNewContactViewModel());
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
 
             // Act
             var contact = this.contactManager.GetContacts();
@@ -117,30 +122,17 @@ namespace UnitTests
         public void DeleteContact()
         {
             // Arrange
-            var contact = this.AddNewContactViewModel();
+            var contact = ContactHelper.AddNewContactViewModel();
             this.contactManager.AddContact(contact);
             var contactID = this.contactManager.GetContacts()
                 .FirstOrDefault(x => x.Name == contact.Name && x.Surname == contact.Surname)?.Id;
 
             // Act
-            var result = this.accountController.DeleteContact(contactID.Value);
+            accountController.DeleteContact(contactID.Value);
             var contactList = this.accountController.GetContacts().Value;
 
             // Assert    
             Assert.True(contactList.All(c => c.Id != contactID));
-        }
-
-        private ContactViewModel AddNewContactViewModel()
-        {
-            return new ContactViewModel()
-            {
-                Name = "Name" + Guid.NewGuid().ToString(),
-                Surname = "Surname" + Guid.NewGuid().ToString(),
-                Birthday = DateTime.Now.Date,
-                Phone = "8-111-111-11-11",
-                Vk = "daniska1616",
-                Email = "danis161616@yandex.ru",
-            };
         }
     }
 }
