@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    [TestFixture]
     public class ContactManagerTests
     {
         private readonly ContactManager contactManager = new ContactManager(new ContactRepository());

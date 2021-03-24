@@ -1,14 +1,13 @@
 ﻿using System;
-using ContactsApp.DAL.Models;
+using ContactsApp.BLL.Models;
 using NUnit.Framework;
 
 namespace UnitTests
 {
     /// <summary>
-    /// Тест на валидацию класса Contact
+    /// Тест на валидацию класса ContactViewModel
     /// </summary>
-    [TestFixture]
-    public class ContactTes
+    public class ContactViewModelTests
     {
         /// <summary>
         /// Тест на присваивание значений полям класса Contact.
@@ -24,7 +23,7 @@ namespace UnitTests
         [TestCase("Birthday", "")]
         public void AssignmenValuesInFieldsTest (string field, string value)
         {
-            var contact = new Contact();
+            var contact = new ContactViewModel();
             switch (field)
             {
                 case "Name":
@@ -56,23 +55,6 @@ namespace UnitTests
                     throw new Exception("Поле отсутсвует");
             }
         }
-        
-        /// <summary>
-        /// Тест на валидацию присвоение Id.
-        /// </summary>
-        [Test]
-        public void ValidateIdTest()
-        {
-            try
-            {
-                var contact = new Contact();
-                contact.Id = -1;
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual(e.Message, "Неправильный формат идентификатора!");
-            }
-        }
 
         /// <summary>
         /// Тест на валидацию присвоение имени.
@@ -85,7 +67,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 contact.Name = value;
             }
             catch (ArgumentException e)
@@ -105,7 +87,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 contact.Surname = value;
             }
             catch (ArgumentException e)
@@ -126,7 +108,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     contact.Birthday = DateTime.Now.AddDays(1).Date;
@@ -154,7 +136,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 contact.Phone = value;
             }
             catch (ArgumentException e)
@@ -176,7 +158,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 contact.Email = value;
             }
             catch (ArgumentException e)
@@ -196,7 +178,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new Contact();
+                var contact = new ContactViewModel();
                 contact.Vk = value;
             }
             catch (ArgumentException e)

@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    [TestFixture]
     public class ContactRepositoryTests
     {
         private readonly ContactRepository contactRepository = new ContactRepository();

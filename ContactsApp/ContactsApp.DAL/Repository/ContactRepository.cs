@@ -21,7 +21,7 @@ namespace ContactsApp.DAL.Repository
         {
             this.CheckFile();
             var contacts = this.Deserializer();
-            return contacts.Count != 0 ? contacts : null;
+            return contacts?.Count != 0 ? contacts : null;
         }
 
         private void Serializer(List<Contact> contact)

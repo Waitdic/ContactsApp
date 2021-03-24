@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    [TestFixture]
     public class AccountControllerTests
     {
         private readonly ContactManager contactManager = new ContactManager(new ContactRepository());
@@ -107,9 +108,11 @@ namespace UnitTests
         {
             // Arrange
             this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
-
+            var contacts = this.contactManager.GetContacts();
+            var id = contacts.LastOrDefault()?.Id;
+            
             // Act
-            var contact = this.contactManager.GetContacts();
+            var contact = this.accountController.GetContact(id.GetValueOrDefault());
 
             // Assert    
             Assert.NotNull(contact);
