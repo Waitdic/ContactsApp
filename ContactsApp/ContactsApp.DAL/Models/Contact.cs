@@ -21,7 +21,7 @@ namespace ContactsApp.DAL.Models
             get => this.id;
             set
             {
-                if (!int.TryParse(value.ToString(), out value))
+                if (!int.TryParse(value.ToString(), out value) || value < 0)
                 {
                     throw new ArgumentException("Неправильный формат идентификатора!");
                 }
@@ -72,11 +72,6 @@ namespace ContactsApp.DAL.Models
             get => this.birthday;
             set
             {
-                if (!DateTime.TryParse(value.ToString(), out DateTime result))
-                {
-                    throw new ArgumentException("Дата рождения имеет неверный формат");
-                }
-
                 if (value > DateTime.Now.Date)
                 {
                     throw new ArgumentException("Дата рождения не может быть больше настоящего времени");
@@ -99,6 +94,11 @@ namespace ContactsApp.DAL.Models
                     throw new ArgumentException("Телефон не был не было вписан!");
                 }
 
+                if (!Regex.IsMatch(value, @"(?![^a-zA-Zа-яА-Я]).*$", RegexOptions.IgnoreCase))
+                {
+                    throw new ArgumentException("Номер телефона имеет неверный формат!");
+                }
+                
                 this.phone = value;
             }
         }

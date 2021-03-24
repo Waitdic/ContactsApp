@@ -19,10 +19,7 @@ namespace ContactsApp.BLL.Interfaces
 
         /// <summary>
         /// Удалить контакт.
-        /// </summary>
-        /// <param name="id">
-        /// Id.
-        /// </param>
+        /// </summary><param name="id">Id контакта.</param>
         void DeleteContact(int id);
 
         /// <summary>
@@ -33,6 +30,7 @@ namespace ContactsApp.BLL.Interfaces
         /// <summary>
         /// Получить контакт по Id.
         /// </summary>
+        /// <param name="id">Id контакта.</param>
         ContactViewModel GetContactById(int id);
     }
 }

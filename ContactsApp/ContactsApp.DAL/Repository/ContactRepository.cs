@@ -20,7 +20,8 @@ namespace ContactsApp.DAL.Repository
         public List<Contact> GetContacts()
         {
             this.CheckFile();
-            return this.Deserializer();
+            var contacts = this.Deserializer();
+            return contacts?.Count != 0 ? contacts : null;
         }
 
         private void Serializer(List<Contact> contact)
