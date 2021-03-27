@@ -23,7 +23,7 @@ namespace UnitTests
         [TestCase("Birthday", "")]
         public void AssignmenValuesInFieldsTest (string field, string value)
         {
-            var contact = new ContactViewModel();
+            var contact = new ContactVM();
             switch (field)
             {
                 case "Name":
@@ -67,7 +67,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 contact.Name = value;
             }
             catch (ArgumentException e)
@@ -87,7 +87,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 contact.Surname = value;
             }
             catch (ArgumentException e)
@@ -108,7 +108,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     contact.Birthday = DateTime.Now.AddDays(1).Date;
@@ -136,7 +136,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 contact.Phone = value;
             }
             catch (ArgumentException e)
@@ -158,7 +158,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 contact.Email = value;
             }
             catch (ArgumentException e)
@@ -178,7 +178,7 @@ namespace UnitTests
         {
             try
             {
-                var contact = new ContactViewModel();
+                var contact = new ContactVM();
                 contact.Vk = value;
             }
             catch (ArgumentException e)

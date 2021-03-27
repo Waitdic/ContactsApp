@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ContactsApp.BLL.Models
 {
-    public class ContactViewModel
+    public class ContactVM
     {
         private int? id;
         private string name;

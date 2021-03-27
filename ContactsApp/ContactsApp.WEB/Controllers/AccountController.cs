@@ -21,7 +21,7 @@ namespace ContactsApp.WEB.Controllers
         /// <summary>Получить все контакты все контакты.</summary>
         /// <returns>Список контактов.</returns>
         [HttpGet("")]
-        public ActionResult<List<ContactViewModel>> GetContacts()
+        public ActionResult<List<ContactVM>> GetContacts()
         {
             return this.contactManager.GetContacts();
         }
@@ -31,7 +31,7 @@ namespace ContactsApp.WEB.Controllers
         /// <returns>Контакт.</returns>
         [HttpGet("{id}")]
         [CustomExceptionFilter]
-        public ActionResult<ContactViewModel> GetContact(int id)
+        public ActionResult<ContactVM> GetContact(int id)
         {
             return this.contactManager.GetContactById(id);
         }
@@ -40,7 +40,7 @@ namespace ContactsApp.WEB.Controllers
         /// <param name="contact">Контакт.</param>
         [HttpPost]
         [CustomExceptionFilter]
-        public ActionResult<List<ContactViewModel>> AddContact(ContactViewModel contact)
+        public ActionResult<List<ContactVM>> AddContact(ContactVM contact)
         {
             this.contactManager.AddContact(contact);
             return Ok(this.contactManager.GetContacts());
@@ -50,7 +50,7 @@ namespace ContactsApp.WEB.Controllers
         /// <param name="contact">Контакт</param>
         [HttpPut]
         [CustomExceptionFilter]
-        public IActionResult EditContact(ContactViewModel contact)
+        public IActionResult EditContact(ContactVM contact)
         {
             this.contactManager.EditContact(contact);
             return Ok();

@@ -21,7 +21,7 @@ namespace UnitTests
             ContactHelper.CleanDb();
         }
         
-        [SetUp]
+        
         public void Initialize()
         {
             ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
@@ -40,7 +40,11 @@ namespace UnitTests
         [Test]
         public void AddContactTest()
         {
-            this.contactRepository.AddContact(new List<Contact>{ this.contact });
+            // Setup
+            Initialize();
+
+            // Act
+            this.contactRepository.AddContact(new List<Contact>{  });
         }
         
         /// <summary>

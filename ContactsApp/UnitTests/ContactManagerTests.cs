@@ -13,7 +13,7 @@ namespace UnitTests
         private readonly ContactManager contactManager = new ContactManager(new ContactRepository());
         private readonly ContactRepository contactRepository = new ContactRepository();
 
-        private ContactViewModel contact;
+        private ContactVM contact;
         
         [SetUp]
         public void Initialize()
@@ -74,7 +74,7 @@ namespace UnitTests
             
             Assert.NotNull(modal);
 
-            var newContact = new ContactViewModel
+            var newContact = new ContactVM
             {
                 Id = modal.Id,
                 Name = modal.Name,
@@ -104,7 +104,7 @@ namespace UnitTests
             
             Assert.NotNull(modal);
 
-            var newContact = new ContactViewModel
+            var newContact = new ContactVM
             {
                 Id = modal.Id + 100,
                 Name = modal.Name,
@@ -132,7 +132,7 @@ namespace UnitTests
         public void NotFoundContactEditTest()
         {
             ContactHelper.CleanDb();
-            var newContact = new ContactViewModel
+            var newContact = new ContactVM
             {
                 Id = 1,
                 Name = Guid.NewGuid().ToString(),

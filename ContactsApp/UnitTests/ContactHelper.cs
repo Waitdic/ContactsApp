@@ -16,9 +16,9 @@ namespace UnitTests
         /// </summary>
         /// <returns>Объект класса ContactViewModel.</returns>
         /// <remarks>Без ID.</remarks>
-        public static ContactViewModel AddNewContactViewModel()
+        public static ContactVM AddNewContactViewModel()
         {
-            return new ContactViewModel()
+            return new ContactVM()
             {
                 Name = "Name" + Guid.NewGuid().ToString(),
                 Surname = "Surname" + Guid.NewGuid().ToString(),

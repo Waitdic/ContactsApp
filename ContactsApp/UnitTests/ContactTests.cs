@@ -10,18 +10,20 @@ namespace UnitTests
     [TestFixture]
     public class ContactTes
     {
+        private const string PropertyNameTest = "Тестирование присвоения {1} в {0}";
+
         /// <summary>
         /// Тест на присваивание значений полям класса Contact.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [Test]
-        [TestCase("Name", "Name")]
-        [TestCase("Surname", "Surname")]
-        [TestCase("Phone", "8-111-111-11-11")]
-        [TestCase("Email", "danis161616@yandex.ru")]
-        [TestCase("Vk", "daniska1616")]
-        [TestCase("Birthday", "")]
+        [TestCase("Name", "Name", TestName = PropertyNameTest)]
+        [TestCase("Surname", "Surname", TestName = PropertyNameTest)]
+        [TestCase("Phone", "8-111-111-11-11", TestName = PropertyNameTest)]
+        [TestCase("Email", "danis161616@yandex.ru", TestName = PropertyNameTest)]
+        [TestCase("Vk", "daniska1616", TestName = PropertyNameTest)]
+        [TestCase("Birthday", "", TestName = PropertyNameTest)]
         public void AssignmenValuesInFieldsTest (string field, string value)
         {
             var contact = new Contact();
@@ -61,17 +63,17 @@ namespace UnitTests
         /// Тест на валидацию присвоение Id.
         /// </summary>
         [Test]
-        public void ValidateIdTest()
+        public void Id_WrongId_ThrowsException()
         {
-            try
+            // Setup
+            var contact = new Contact();
+
+            // Assert
+            Assert.Throws<ArgumentException>(() =>
             {
-                var contact = new Contact();
+                // Act
                 contact.Id = -1;
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual(e.Message, "Неправильный формат идентификатора!");
-            }
+            });
         }
 
         /// <summary>

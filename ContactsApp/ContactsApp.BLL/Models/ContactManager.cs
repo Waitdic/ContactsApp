@@ -16,7 +16,7 @@ namespace ContactsApp.BLL.Models
             this.contactRepository = contactRepository;
         }
 
-        public void AddContact(ContactViewModel contact)
+        public void AddContact(ContactVM contact)
         {
             if (contact == null)
             {
@@ -41,7 +41,8 @@ namespace ContactsApp.BLL.Models
             }
         }
 
-        public void EditContact(ContactViewModel contact)
+        /// <inheritdoc cref="IContactManager"/>
+        public void EditContact(ContactVM contact)
         {
             var models = this.contactRepository.GetContacts();
             this.ValidationModels(models, contact.Id.GetValueOrDefault());
@@ -56,6 +57,7 @@ namespace ContactsApp.BLL.Models
             this.contactRepository.AddContact(models);
         }
 
+        /// <inheritdoc cref="IContactManager"/>
         public void DeleteContact(int id)
         {
             var models = this.contactRepository.GetContacts();
@@ -67,14 +69,14 @@ namespace ContactsApp.BLL.Models
             this.contactRepository.AddContact(models);
         }
 
-        public List<ContactViewModel> GetContacts()
+        public List<ContactVM> GetContacts()
         {
             return this.contactRepository.GetContacts()
                 ?.Select(this.FromModelToViewModel)
                 .ToList();
         }
 
-        public ContactViewModel GetContactById(int id)
+        public ContactVM GetContactById(int id)
         {
             return this.FromModelToViewModel
             (this.contactRepository
@@ -83,7 +85,7 @@ namespace ContactsApp.BLL.Models
                 );
         }
 
-        private Contact FromViewToModel(ContactViewModel contact)
+        private Contact FromViewToModel(ContactVM contact)
         {
             return new Contact
             {
@@ -97,9 +99,9 @@ namespace ContactsApp.BLL.Models
             };
         }
 
-        private ContactViewModel FromModelToViewModel(Contact contact)
+        private ContactVM FromModelToViewModel(Contact contact)
         {
-            return new ContactViewModel
+            return new ContactVM
             {
                 Id = contact.Id,
                 Name = contact.Name,

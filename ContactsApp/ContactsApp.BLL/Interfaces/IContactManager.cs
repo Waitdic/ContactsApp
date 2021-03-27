@@ -3,19 +3,22 @@ using ContactsApp.BLL.Models;
 
 namespace ContactsApp.BLL.Interfaces
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IContactManager
     {
         /// <summary>
         /// Добавить контакт.
         /// </summary>
         /// <param name="contact">Contact.</param>
-        void AddContact(ContactViewModel contact);
+        void AddContact(ContactVM contact);
 
         /// <summary>
         /// Изменить контакт.
         /// </summary>
         /// <param name="contact">Contact.</param>
-        void EditContact(ContactViewModel contact);
+        void EditContact(ContactVM contact);
 
         /// <summary>
         /// Удалить контакт.
@@ -25,12 +28,12 @@ namespace ContactsApp.BLL.Interfaces
         /// <summary>
         /// Получить список контактов.
         /// </summary>
-        List<ContactViewModel> GetContacts();
+        List<ContactVM> GetContacts();
 
         /// <summary>
         /// Получить контакт по Id.
         /// </summary>
         /// <param name="id">Id контакта.</param>
-        ContactViewModel GetContactById(int id);
+        ContactVM GetContactById(int id);
     }
 }
