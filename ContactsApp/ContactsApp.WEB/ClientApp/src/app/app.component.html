@@ -13,7 +13,7 @@
             </thead>
             <tbody class="tbody">
                 <tr *ngFor="let c of contacts"
-                (click)="editContact(c)">
+                (click)="showContact(c)">
                         <td>{{c?.id}}</td>  
                         <td>{{c?.name}} {{c?.surname}}</td>
                 </tr>
@@ -33,17 +33,10 @@
                     <input 
                         type="text" 
                         [(ngModel)]="contact.name" 
-                        class="form-control" 
-                        name="name" 
-                        #name="ngModel" 
-                        required/>
+                        class="form-control"
+                        disabled="disabled">
                     </td>
-                    <td>
-                    <label></label>
-                    <div [hidden]="name.valid || name.untouched || name.pristine" class="alert alert-danger questionnaire-td">
-                        Обязательное для заполнения
-                    </div>
-                    </td>
+                    <td></td>
             </div>
             </tr>
 
@@ -55,16 +48,9 @@
                             type="text" 
                             [(ngModel)]="contact.surname" 
                             class="form-control" 
-                            name="surname" 
-                            #surname="ngModel" 
-                            required />
+                            disabled="disabled"/>
                     </td>
-                    <td>
-                        <label></label>
-                        <div [hidden]="surname.valid || surname.untouched || surname.pristine" class="alert alert-danger questionnaire-td">
-                            Обязательное для заполнения
-                        </div>
-                    </td>
+                    <td></td>
                 </div>
             </tr>
 
@@ -75,18 +61,10 @@
                     <input 
                         type="date" 
                         [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
-                        (ngModelChange)="contact.birthday = $event" 
                         class="form-control" 
-                        name="date" 
-                        #date="ngModel" 
-                        required/>
+                        disabled="disabled"/>
                     </td>
-                    <td>
-                        <label></label>
-                        <div [hidden]="date.valid || date.untouched || date.pristine" class="alert alert-danger questionnaire-td">
-                            Обязательное для заполнения
-                        </div>
-                    </td>
+                    <td></td>
                 </div>
             </tr>
             <tr>
@@ -97,17 +75,9 @@
                             type="text" 
                             [(ngModel)]="contact.phone" 
                             class="form-control" 
-                            name="phone" 
-                            #phone="ngModel" 
-                            required 
-                            pattern="[0-9]{11}"/>
+                            disabled="disabled"/>
                     </td>
-                    <td>
-                        <label></label>
-                        <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger questionnaire-td">
-                            Неверный формат
-                        </div>
-                    </td>
+                    <td></td>
                 </div>
             </tr>
 
@@ -119,15 +89,9 @@
                             type="email" 
                             [(ngModel)]="contact.email" 
                             class="form-control" 
-                            #email="ngModel" 
-                            email/>
+                            disabled="disabled"/>
                     </td>
-                    <td>
-                        <label></label>
-                        <div [hidden]="email.valid || email.untouched || email.pristine" class="alert alert-danger questionnaire-td">
-                            Неверный формат
-                        </div>
-                    </td>
+                    <td></td>
                 </div>
             </tr>
 
@@ -138,18 +102,17 @@
                         <input 
                             type="text" 
                             [(ngModel)]="contact.vk" 
-                            class="form-control" />
+                            class="form-control"
+                            disabled="disabled" />
                     </td>
-                    <td>
-                        <label></label>
-                        <div></div>
-                    </td>
+                    <td></td>
                 </div>
             </tr>
 
             <tr>
                 <div>
                      <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
+                     <input [hidden]="contact === null" type="button" value="Изменить" (click)="editContact()" class="btn btn-warning grid-button" />
                 </div>
             <tr>
             </tbody>
@@ -159,10 +122,6 @@
 
 <ng-template #edit>
     <div class="modal mmodal">
-        <!-- <h4>Контакт</h4>
-        <button type="button" class="close" aria-label="Close" (click)="cancel()">
-            <span aria-hidden="true">×</span>
-        </button> -->
         <div class="modal-body mmodal-body">
             <h3 class="center">Контакт
             <button type="button" class="close" aria-label="Close" (click)="cancel()">
@@ -287,12 +246,9 @@
                                 <input 
                                     type="text" 
                                     [(ngModel)]="contact.vk" 
-                                    class="form-control" />
+                                    class="form-control"/>
                             </td>
-                            <td>
-                                <label></label>
-                                <div></div>
-                            </td>
+                            <td></td>
                         </div>
                     </tr>
         

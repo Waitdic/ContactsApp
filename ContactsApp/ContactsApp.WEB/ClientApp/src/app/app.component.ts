@@ -41,6 +41,11 @@ export class AppComponent implements OnInit  {
 
     editContact(p: Contact) {
         this.contact = p;
+        this.tableMode = false;
+    }
+
+    showContact(p: Contact) {
+      this.contact = p;
     }
 
    add() {
