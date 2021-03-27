@@ -18,7 +18,13 @@ namespace ContactsApp.BLL.Models
 
         public void AddContact(ContactViewModel contact)
         {
+            if (contact == null)
+            {
+                throw new ArgumentException("Contact model is null!");
+            }
+            
             var models = this.contactRepository.GetContacts();
+
             if (models == null)
             {
                 contact.Id = 0;

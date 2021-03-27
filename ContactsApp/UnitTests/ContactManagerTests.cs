@@ -47,6 +47,22 @@ namespace UnitTests
         }
         
         /// <summary>
+        /// Тест на валидацию добавления контакта.
+        /// </summary>
+        [Test]
+        public void ValidAddContactTest()
+        {
+            try
+            {
+                this.contactManager.AddContact(null);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Contact model is null!", e.Message);
+            }
+        }
+        
+        /// <summary>
         /// Тест на изменение контакта.
         /// </summary>
         [Test]
