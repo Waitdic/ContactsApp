@@ -39,9 +39,11 @@ export class AppComponent implements OnInit  {
         this.cancel();
     } 
 
-    editContact(p: Contact) {
-        this.contact = p;
-        this.tableMode = false;
+    editContact() {
+        if(this.contact !== null)
+        {
+            this.tableMode = false;
+        }
     }
 
     showContact(p: Contact) {
