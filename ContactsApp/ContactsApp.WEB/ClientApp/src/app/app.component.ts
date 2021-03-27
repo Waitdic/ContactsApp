@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit} from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from './data.service';
 import { Contact } from './contact';
+import { checkServerIdentity } from 'tls';
  
 @Component({
     selector: 'app',
@@ -13,33 +14,14 @@ import { Contact } from './contact';
 export class AppComponent implements OnInit  {
     contact: Contact = new Contact();   
     contacts: Contact[];         
-    closeResult: string;
-    
-    constructor(
-        private dataService: DataService,
-        private modalService: NgbModal) { }
+    tableMode: boolean = true;
+    searchString: string;
+
+    constructor(private dataService: DataService,) { }
  
     ngOnInit() {
         this.loadContacts(); 
     }
-
-    open(content) {
-        this.modalService.open(content).result.then((result) => {
-          this.closeResult = `Closed with: ${result}`;
-        }, (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-      }
-
-      private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-          return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-          return 'by clicking on a backdrop';
-        } else {
-          return  `with: ${reason}`;
-        }
-      }
     
     loadContacts() {
         this.dataService.getContacts()
@@ -61,8 +43,14 @@ export class AppComponent implements OnInit  {
         this.contact = p;
     }
 
+   add() {
+        this.cancel();
+        this.tableMode = false;
+    }
+
     cancel() {
         this.contact = new Contact();
+        this.tableMode = true;
     }
 
     delete() {

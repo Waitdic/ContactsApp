@@ -2,11 +2,13 @@
 <div class="grid-lable">
     <div class="contact-style table-list">
         <div class="table-scroll">
-        <table class="table">
+        <table class="table" *ngIf="tableMode; else edit">
             <thead>
                 <tr>
                     <td></td>
-                    <td><h3>Контакты</h3></td>
+                    <td>
+                        <h3>Контакты</h3>
+                    </td>
                 </tr>
             </thead>
             <tbody class="tbody">
@@ -16,7 +18,7 @@
                         <td>{{c?.name}} {{c?.surname}}</td>
                 </tr>
             </tbody>
-            <button class="btn btn-success" (click)="open(create)">Добавить</button>
+            <button class="btn btn-success" (click)="add()">Добавить</button>
         </table>
     </div>
     </div>
@@ -147,9 +149,7 @@
 
             <tr>
                 <div>
-                     <!--<input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
-                     <input type="button" value="Очистить" (click)="cancel()" class="btn btn-warning grid-button" /> -->
-                    <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
+                     <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
                 </div>
             <tr>
             </tbody>
@@ -157,19 +157,23 @@
     </div>
 </div>
 
-<ng-template #create let-c="close" let-d="dismiss">
+<ng-template #edit>
     <div class="modal mmodal">
-        <div id="modal-header">
-            <h4 id="modal-title" id="modal-basic-title">Контакт</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">×</span>
-              </button>
-        </div>
+        <!-- <h4>Контакт</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cancel()">
+            <span aria-hidden="true">×</span>
+        </button> -->
         <div class="modal-body mmodal-body">
+            <h3 class="center">Контакт
+            <button type="button" class="close" aria-label="Close" (click)="cancel()">
+                <span aria-hidden="true">×</span>
+            </button>
+            </h3>
+            <form #contactForm="ngForm">
                 <table class="table">
                     <tbody>
                     <tr>
-                    <div class="form-group grid-questionnaire-tr">    
+                        <div class="form-group grid-questionnaire-tr">
                             <td>
                             <label>Имя</label>
                             <input 
@@ -182,11 +186,13 @@
                             </td>
                             <td>
                             <label></label>
-                            <div [hidden]="name.valid || name.untouched || name.pristine" class="alert alert-danger questionnaire-td">
+                            <div 
+                            [hidden]="name.valid || name.untouched || (name.pristine && name.value !== null) || (!name.untouched && name.value !== null)" 
+                            class="alert alert-danger questionnaire-td">
                                 Обязательное для заполнения
                             </div>
                             </td>
-                    </div>
+                        </div>
                     </tr>
         
                     <tr>
@@ -260,6 +266,7 @@
                                 <input 
                                     type="email" 
                                     [(ngModel)]="contact.email" 
+                                    name="email"
                                     class="form-control" 
                                     #email="ngModel" 
                                     email/>
@@ -291,16 +298,14 @@
         
                     <tr>
                         <div>
-                            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
+                            <input type="button" value="Сохранить" [disabled]="!contactForm.form.valid" (click)="save()" class="btn btn-success" />
                             <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning" />
                         </div>
                     <tr>
                     </tbody>
-                </table>-->
+                </table>
+                </form>
             </div>  
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Ok</button>
-              </div>
         </div>
         <div class="mmodal-background"></div>
 </ng-template>
