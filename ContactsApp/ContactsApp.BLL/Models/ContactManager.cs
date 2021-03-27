@@ -38,7 +38,7 @@ namespace ContactsApp.BLL.Models
         public void EditContact(ContactViewModel contact)
         {
             var models = this.contactRepository.GetContacts();
-            this.ValidationModels(models, contact);
+            this.ValidationModels(models, contact.Id.GetValueOrDefault());
 
             var entity = this.FromViewToModel(contact);
             entity.Id = contact.Id.Value;
@@ -53,15 +53,7 @@ namespace ContactsApp.BLL.Models
         public void DeleteContact(int id)
         {
             var models = this.contactRepository.GetContacts();
-            if (models == null)
-            {
-                throw new ArgumentException("Contacts not found");
-            }
-
-            if (models.All(x => x.Id != id))
-            {
-                throw new ArgumentException("Contact not found");
-            }
+            this.ValidationModels(models, id);
 
             var contact = models.FirstOrDefault(i => i.Id == id);
             models.Remove(contact);
@@ -113,14 +105,14 @@ namespace ContactsApp.BLL.Models
             };
         }
 
-        private void ValidationModels(List<Contact> models, ContactViewModel contact)
+        private void ValidationModels(List<Contact> models, int? id)
         {
             if (models == null)
             {
                 throw new ArgumentException("Contacts not found");
             }
 
-            if (contact.Id == null || models.All(x => x.Id != contact.Id))
+            if (id == null || models.All(x => x.Id != id.GetValueOrDefault()))
             {
                 throw new ArgumentException("Contact not found");
             }

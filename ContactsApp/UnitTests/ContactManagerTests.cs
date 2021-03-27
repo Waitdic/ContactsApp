@@ -77,6 +77,67 @@ namespace UnitTests
         }
         
         /// <summary>
+        /// Тест на изменение контакта с несуществующим Id.
+        /// </summary>
+        [Test]
+        public void NotFoundContactIdEditTest()
+        {
+            var modal = this.contactRepository
+                .GetContacts()
+                ?.LastOrDefault(x => x.Name == contact.Name);
+            
+            Assert.NotNull(modal);
+
+            var newContact = new ContactViewModel
+            {
+                Id = modal.Id + 100,
+                Name = modal.Name,
+                Surname = "NewSurname" + Guid.NewGuid().ToString(),
+                Email = modal.Email,
+                Phone = modal.Phone,
+                Vk = modal.Vk,
+                Birthday = modal.Birthday
+            };
+
+            try
+            {
+                this.contactManager.EditContact(newContact);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Contact not found", e.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Тест на изменение несуществующего контакта.
+        /// </summary>
+        [Test]
+        public void NotFoundContactEditTest()
+        {
+            ContactHelper.CleanDb();
+            var newContact = new ContactViewModel
+            {
+                Id = 1,
+                Name = Guid.NewGuid().ToString(),
+                Surname = "NewSurname" + Guid.NewGuid().ToString(),
+                Email = "test@gmail.com",
+                Phone = "89999999999",
+                Vk = "test",
+                Birthday = DateTime.Now.Date,
+            };
+
+            try
+            {
+                this.contactManager.EditContact(newContact);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Contacts not found", e.Message);
+            }
+        }
+        
+        /// <summary>
         /// Тест на удаление контакта.
         /// </summary>
         [Test]
@@ -95,6 +156,46 @@ namespace UnitTests
                 ?.FirstOrDefault(x => x.Id == modal.Id);
             
             Assert.IsNull(deletedModel);
+        }
+        
+        /// <summary>
+        /// Тест на изменение контакта с несуществующим Id.
+        /// </summary>
+        [Test]
+        public void NotFoundContactIdDeleteTest()
+        {
+            var modal = this.contactRepository
+                .GetContacts()
+                .OrderBy(x => x.Id)
+                ?.Last(x => x.Name == contact.Name);
+            
+            Assert.NotNull(modal);
+
+            try
+            {
+                this.contactManager.DeleteContact(modal.Id + 100);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Contact not found", e.Message);
+            }
+        }
+        
+        /// <summary>
+        /// Тест на изменение несуществующего контакта.
+        /// </summary>
+        [Test]
+        public void NotFoundContactDeleteTest()
+        {
+            ContactHelper.CleanDb();
+            try
+            {
+                this.contactManager.DeleteContact(1);
+            }
+            catch (ArgumentException e)
+            {
+                Assert.AreEqual("Contacts not found", e.Message);
+            }
         }
         
         /// <summary>
