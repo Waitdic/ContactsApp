@@ -8,20 +8,21 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Тесты на проверку AccountController
+    /// </summary>
     [TestFixture]
     public class AccountControllerTests
     {
         private readonly ContactManager contactManager = new ContactManager(new ContactRepository());
         private readonly AccountController accountController = new AccountController(new ContactManager(new ContactRepository()));
-
-        [SetUp]
-        public void Initialize()
+        
+        private static void Initialize()
         {
             ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
         }
         
-        [OneTimeTearDown]
-        public void Clean()
+        private static void Clean()
         {
             ContactHelper.CleanDb();
         }
@@ -30,13 +31,13 @@ namespace UnitTests
         /// Тест на создание добавления нового контакта.
         /// </summary>
         [Test]
-        public void AddNewContactTest()    
+        public void AddContact_NewContact_CorrectResult()    
         {
-            // Arrange
+            // SetUp
+            Initialize();
             var newContact = ContactHelper.AddNewContactViewModel();
 
             // Act
-            // TODO: Необходимо посмотреть почему данные возврщаются равные null;
             this.accountController.AddContact(newContact);
             var model = this.contactManager.GetContacts().OrderBy(x => x.Id).LastOrDefault();
        
@@ -48,15 +49,18 @@ namespace UnitTests
             Assert.AreEqual(newContact.Email, model.Email);
             Assert.AreEqual(newContact.Phone, model.Phone);
             Assert.AreEqual(newContact.Vk, model.Vk);
+            Clean();
         }
 
         /// <summary>
         /// Тест на получения списка контактов.
         /// </summary>
         [Test]
-        public void GetContactsTest()
+        public void GetContacts_CorrectResult()
         {
-            // Arrange
+            // SetUp
+            Initialize();
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
             var number = this.contactManager.GetContacts().Count;
             this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
 
@@ -66,15 +70,17 @@ namespace UnitTests
             // Assert    
             Assert.NotNull(contact);
             Assert.AreEqual(number + 1, contact.Value.Count);
+            Clean();
         }
                  
         /// <summary>
         /// Тест на редактирование контакта.
         /// </summary>
         [Test]
-        public void EditContactTest()
+        public void EditContact_Contact_CorrectResult()
         {
-            // Arrange
+            // SetUp
+            Initialize();
             var contact = ContactHelper.AddNewContactViewModel();
             this.contactManager.AddContact(contact);
             var contactID = this.contactManager.GetContacts()
@@ -98,15 +104,17 @@ namespace UnitTests
             Assert.AreEqual(newContact.Email, model?.Email);
             Assert.AreEqual(newContact.Phone, model?.Phone);
             Assert.AreEqual(newContact.Vk, model?.Vk);
+            Clean();
         }
 
         /// <summary>
         /// Тест на получение контакта по id.
         /// </summary>
         [Test]
-        public void GetContactByIdTest()
+        public void GetContact_Id_CorrectResult()
         {
-            // Arrange
+            // SetUp
+            Initialize();
             this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
             var contacts = this.contactManager.GetContacts();
             var id = contacts.LastOrDefault()?.Id;
@@ -116,15 +124,19 @@ namespace UnitTests
 
             // Assert    
             Assert.NotNull(contact);
+            Clean();
         }
 
         /// <summary>
         /// Тест на удаление контакта.
         /// </summary>
         [Test]
-        public void DeleteContact()
+        public void DeleteContact_Id_CorrectResult()
         {
-            // Arrange
+            // SetUp
+            Initialize();
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
             var contact = ContactHelper.AddNewContactViewModel();
             this.contactManager.AddContact(contact);
             var contactID = this.contactManager.GetContacts()
@@ -136,6 +148,7 @@ namespace UnitTests
 
             // Assert    
             Assert.True(contactList.All(c => c.Id != contactID));
+            Clean();
         }
     }
 }

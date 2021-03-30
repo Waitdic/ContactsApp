@@ -23,7 +23,7 @@ namespace UnitTests
                 Name = "Name" + Guid.NewGuid().ToString(),
                 Surname = "Surname" + Guid.NewGuid().ToString(),
                 Birthday = DateTime.Now.Date,
-                Phone = "8-111-111-11-11",
+                Phone = "89999999999",
                 Vk = "daniska1616",
                 Email = "danis161616@yandex.ru",
             };
@@ -42,7 +42,7 @@ namespace UnitTests
                 Name = "Name" + Guid.NewGuid().ToString(),
                 Surname = "Surname" + Guid.NewGuid().ToString(),
                 Birthday = DateTime.Now.Date,
-                Phone = "8-111-111-11-11",
+                Phone = "81111111111",
                 Vk = "daniska1616",
                 Email = "danis161616@yandex.ru",
             };

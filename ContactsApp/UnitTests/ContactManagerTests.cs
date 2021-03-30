@@ -7,6 +7,9 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Тесты на проверку ContactManager
+    /// </summary>
     [TestFixture]
     public class ContactManagerTests
     {
@@ -15,17 +18,15 @@ namespace UnitTests
 
         private ContactVM contact;
         
-        [SetUp]
-        public void Initialize()
+        private void Initialize()
         {
             ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
             
             this.contact = ContactHelper.AddNewContactViewModel();
             this.contactManager.AddContact(this.contact);
         }
-
-        [OneTimeTearDown]
-        public void Clear()
+        
+        private static void Clean()
         {
            ContactHelper.CleanDb();
         }
@@ -34,40 +35,48 @@ namespace UnitTests
         /// Тест на добавление контакта.
         /// </summary>
         [Test]
-        public void AddContactTest()
+        public void AddContact_CorrectResult()
         {
+            // SetUp
+            Initialize();
             var model = this.contactRepository
                 .GetContacts()
                 ?.Where(x => x.Name == this.contact.Name)
                 .ToList();
             
+            // Assert
             Assert.NotNull(model);
             Assert.AreEqual(model.Count, 1);
             Assert.AreEqual(model.FirstOrDefault()?.Name, this.contact.Name);
+            Clean();
         }
         
         /// <summary>
         /// Тест на валидацию добавления контакта.
         /// </summary>
         [Test]
-        public void ValidAddContactTest()
+        public void AddContact_NullObject_ThrowException()
         {
-            try
+            // SetUp
+            Initialize();
+            
+            // Assert
+            Assert.Throws<ArgumentException>(() =>
             {
+                // Act
                 this.contactManager.AddContact(null);
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual("Contact model is null!", e.Message);
-            }
+            });
+            Clean();
         }
         
         /// <summary>
         /// Тест на изменение контакта.
         /// </summary>
         [Test]
-        public void EditContactTest()
+        public void EditContact_Contact_CorrectResult()
         {
+            // SetUp
+            Initialize();
             var modal = this.contactRepository
                 .GetContacts()
                 ?.FirstOrDefault(x => x.Name == contact.Name);
@@ -85,19 +94,24 @@ namespace UnitTests
                 Birthday = modal.Birthday
             };
             
+            // Act
             this.contactManager.EditContact(newContact);
             var newModal = this.contactRepository.GetContacts()?.FirstOrDefault(x => x.Id == newContact.Id);
 
+            // Assert
             Assert.NotNull(newModal);
             Assert.AreEqual(newModal.Surname, newContact.Surname);
+            Clean();
         }
         
         /// <summary>
         /// Тест на изменение контакта с несуществующим Id.
         /// </summary>
         [Test]
-        public void NotFoundContactIdEditTest()
+        public void EditContact_NonExistentId_ThrowException()
         {
+            // SetUp
+            Initialize();
             var modal = this.contactRepository
                 .GetContacts()
                 ?.LastOrDefault(x => x.Name == contact.Name);
@@ -108,29 +122,31 @@ namespace UnitTests
             {
                 Id = modal.Id + 100,
                 Name = modal.Name,
-                Surname = "NewSurname" + Guid.NewGuid().ToString(),
+                Surname = "NewSurname" + Guid.NewGuid(),
                 Email = modal.Email,
                 Phone = modal.Phone,
                 Vk = modal.Vk,
                 Birthday = modal.Birthday
             };
 
-            try
+            // Assert
+            var ex = Assert.Throws<ArgumentException>(() =>
             {
+                // Act
                 this.contactManager.EditContact(newContact);
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual("Contact not found", e.Message);
-            }
+            });
+            Assert.AreEqual("Contact not found", ex.Message);
+            Clean();
         }
         
         /// <summary>
         /// Тест на изменение несуществующего контакта.
         /// </summary>
         [Test]
-        public void NotFoundContactEditTest()
+        public void EditContact_NonExistentContact_ThrowException()
         {
+            // SetUp
+            Initialize();
             ContactHelper.CleanDb();
             var newContact = new ContactVM
             {
@@ -143,43 +159,50 @@ namespace UnitTests
                 Birthday = DateTime.Now.Date,
             };
 
-            try
+            // Assert
+            var ex = Assert.Throws<ArgumentException>(() =>
             {
+                // Act
                 this.contactManager.EditContact(newContact);
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual("Contacts not found", e.Message);
-            }
+            });
+            Assert.AreEqual("Contacts not found", ex.Message);
+            Clean();
         }
         
         /// <summary>
         /// Тест на удаление контакта.
         /// </summary>
         [Test]
-        public void DeleteContactTest()
+        public void DeleteContact_Id_CorrectResult()
         {
+            // SetUp
+            Initialize();
             var modal = this.contactRepository
                 .GetContacts()
                 ?.FirstOrDefault(x => x.Name == contact.Name);
             
             Assert.NotNull(modal);
             
+            // Act
             this.contactManager.DeleteContact(modal.Id);
             
             var deletedModel = this.contactRepository
                 .GetContacts()
                 ?.FirstOrDefault(x => x.Id == modal.Id);
             
+            // Assert
             Assert.IsNull(deletedModel);
+            Clean();
         }
         
         /// <summary>
         /// Тест на изменение контакта с несуществующим Id.
         /// </summary>
         [Test]
-        public void NotFoundContactIdDeleteTest()
+        public void DeleteContact_NonExistentId_ThrowException()
         {
+            // SetUp
+            Initialize();
             var modal = this.contactRepository
                 .GetContacts()
                 .OrderBy(x => x.Id)
@@ -187,64 +210,78 @@ namespace UnitTests
             
             Assert.NotNull(modal);
 
-            try
+            // Assert
+            var ex = Assert.Throws<ArgumentException>(() =>
             {
+                // Act
                 this.contactManager.DeleteContact(modal.Id + 100);
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual("Contact not found", e.Message);
-            }
+            });
+            Assert.AreEqual("Contact not found", ex.Message);
+            Clean();
         }
         
         /// <summary>
         /// Тест на изменение несуществующего контакта.
         /// </summary>
         [Test]
-        public void NotFoundContactDeleteTest()
+        public void DeleteContact_NonExistentContact_ThrowException()
         {
+            // SetUp
+            Initialize();
             ContactHelper.CleanDb();
-            try
+            
+            // Assert
+            var ex = Assert.Throws<ArgumentException>(() =>
             {
+                // Act
                 this.contactManager.DeleteContact(1);
-            }
-            catch (ArgumentException e)
-            {
-                Assert.AreEqual("Contacts not found", e.Message);
-            }
+            });
+            Assert.AreEqual("Contacts not found", ex.Message);
+            Clean();
         }
         
         /// <summary>
         /// Тест на получение списка контактов.
         /// </summary>
         [Test]
-        public void GetContactsTest()
+        public void GetContacts_CorrectResult()
         {
+            // SetUp
+            Initialize();
             var repositoryModels = contactRepository.GetContacts().ToList();
             var managerModels = contactManager.GetContacts().ToList();
+            
+            // Assert
             Assert.NotNull(managerModels);
             Assert.AreEqual(repositoryModels.Count, managerModels.Count);
 
+            // Act
             var ids = managerModels.Select(x => x.Id).ToList();
             foreach (var model in repositoryModels)
             {
+                //Assert
                 Assert.IsTrue(ids.Contains(model.Id));
             }
+            Clean();
         }
         
         /// <summary>
         /// Тест на поиск контакта по Id.
         /// </summary>
         [Test]
-        public void GetContactByIdTest()
+        public void GetContact_Id_CorrectResult()
         {
+            // SetUp
+            Initialize();
             var modal = this.contactRepository
                 .GetContacts()
                 ?.FirstOrDefault(x => x.Name == contact.Name);
 
+            // Act
             var result = this.contactManager.GetContactById(modal.Id);
-            Assert.NotNull(result);
             
+            // Assert
+            Assert.NotNull(result);
             Assert.AreEqual(modal.Id, result.Id);
             Assert.AreEqual(modal.Name, result.Name);
             Assert.AreEqual(modal.Surname, result.Surname);
@@ -252,6 +289,7 @@ namespace UnitTests
             Assert.AreEqual(modal.Email, result.Email);
             Assert.AreEqual(modal.Birthday, result.Birthday);
             Assert.AreEqual(modal.Vk, result.Vk);
+            Clean();
         }
     }
 }

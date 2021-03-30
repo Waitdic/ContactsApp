@@ -7,6 +7,9 @@ using NUnit.Framework;
 
 namespace UnitTests
 {
+    /// <summary>
+    /// Тесты на проверку ContactRepository
+    /// </summary>
     [TestFixture]
     public class ContactRepositoryTests
     {
@@ -14,50 +17,29 @@ namespace UnitTests
 
         private Contact contact;
 
-        [OneTimeSetUp]
-        public void PreClearDb()
-        {
-            ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
-            ContactHelper.CleanDb();
-        }
-        
-        
-        public void Initialize()
+        private void Initialize()
         {
             ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
             this.contact = ContactHelper.AddNewContact();
         }
 
-        [OneTimeTearDown]
-        public void Clean()
-        {
-            ContactHelper.CleanDb();
-        }
-
         /// <summary>
         /// Тест на добавление контакта в бд.
         /// </summary>
         [Test]
-        public void AddContactTest()
+        public void GetContacts_CorrectResult()
         {
-            // Setup
+            // SetUp
             Initialize();
-
+            
             // Act
-            this.contactRepository.AddContact(new List<Contact>{  });
-        }
-        
-        /// <summary>
-        /// Тест на добавление контакта в бд.
-        /// </summary>
-        [Test]
-        public void GetContactsTest()
-        {
             this.contactRepository.AddContact(new List<Contact>{ this.contact });
             var result =this.contactRepository.GetContacts();
             
+            // Assert
             Assert.NotNull(result);
             Assert.NotNull(result.FirstOrDefault(x => x.Id == this.contact.Id));
+            ContactHelper.CleanDb();
         }
         
     }

@@ -94,7 +94,12 @@ namespace ContactsApp.DAL.Models
                     throw new ArgumentException("Телефон не был не было вписан!");
                 }
 
-                if (!Regex.IsMatch(value, @"(?![^a-zA-Zа-яА-Я]).*$", RegexOptions.IgnoreCase))
+                /*if (!Regex.IsMatch(value, @"(?![^a-zA-Zа-яА-Я]).*$", RegexOptions.IgnoreCase))
+                {
+                    throw new ArgumentException("Номер телефона имеет неверный формат!");
+                }*/
+                
+                if (!Regex.IsMatch(value, @"[0-9]{11}", RegexOptions.IgnoreCase))
                 {
                     throw new ArgumentException("Номер телефона имеет неверный формат!");
                 }

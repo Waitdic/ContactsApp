@@ -1,19 +1,18 @@
 ﻿using System;
-using ContactsApp.DAL.Models;
+using ContactsApp.BLL.Models;
 using NUnit.Framework;
 
 namespace UnitTests
 {
     /// <summary>
-    /// Тест на валидацию класса Contact
+    /// Тест на валидацию класса ContactViewModel
     /// </summary>
-    [TestFixture]
-    public class ContactTests
+    public class ContactVMTests
     {
-        private const string PropertyNameTest = "Тестирование присвоения {1} в Contact.{0}";
+        private const string PropertyNameTest = "Тестирование присвоения {1} в ContactVM.{0}";
 
         /// <summary>
-        /// Тест на присваивание корректного имени в Contact.
+        /// Тест на присваивание корректного имени в ContactVM.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
@@ -21,7 +20,7 @@ namespace UnitTests
         public void Name_CorrectName(string field, string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Act
             contact.Name = value;
@@ -31,7 +30,7 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Тест на присваивание корректной фамилии в Contact.Surname.
+        /// Тест на присваивание корректной фамилии в ContactVM.Surname.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
@@ -39,7 +38,7 @@ namespace UnitTests
         public void Surname_CorrectSurname(string field, string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Act
             contact.Surname = value;
@@ -49,7 +48,7 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Тест на присваивание корректного номера в Contact.Phone.
+        /// Тест на присваивание корректного номера в ContactVM.Phone.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
@@ -57,7 +56,7 @@ namespace UnitTests
         public void Phone_CorrectPhone(string field, string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Act
             contact.Phone = value;
@@ -67,7 +66,7 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Тест на присваивание корректного email в Contact.Email.
+        /// Тест на присваивание корректного email в ContactVM.Email.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
@@ -75,7 +74,7 @@ namespace UnitTests
         public void Email_CorrectEmail(string field, string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Act
             contact.Email = value;
@@ -85,7 +84,7 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Тест на присваивание корректного Vk в Contact.Vk.
+        /// Тест на присваивание корректного Vk в ContactVM.Vk.
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
@@ -93,7 +92,7 @@ namespace UnitTests
         public void Vk_CorrectVk(string field, string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Act
             contact.Vk = value;
@@ -103,13 +102,13 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Тест на присваивание корректной даты рождения в Contact.Birthday.
+        /// Тест на присваивание корректной даты рождения в ContactVM.Birthday.
         /// </summary>
         [Test]
         public void Birthday_CorrectBirthday()
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             var date = DateTime.Now.Date;
 
             // Act
@@ -120,32 +119,15 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Тест на валидацию присвоение Id.
-        /// </summary>
-        [Test]
-        public void Id_WrongId_ThrowsException()
-        {
-            // Setup
-            var contact = new Contact();
-
-            // Assert
-            Assert.Throws<ArgumentException>(() =>
-            {
-                // Act
-                contact.Id = -1;
-            });
-        }
-
-        /// <summary>
         /// Тест на валидацию присвоение имени.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Name")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Name")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в ContactVM.Name")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в ContactVM.Name")]
         public void Name_WrongName_ThrowException(string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
 
             // Assert
             Assert.Throws<ArgumentException>(() =>
@@ -159,12 +141,12 @@ namespace UnitTests
         /// Тест на валидацию присвоение фамилии.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Surname")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Surname")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в ContactVM.Surname")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в ContactVM.Surname")]
         public void Surname_WrongSurname_ThrowException(string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Assert
             Assert.Throws<ArgumentException>(() =>
@@ -181,7 +163,7 @@ namespace UnitTests
         public void Birthday_WrongBirthday_ThrowException()
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Assert
             Assert.Throws<ArgumentException>(() =>
@@ -197,16 +179,16 @@ namespace UnitTests
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
         /// <param name="message">Ошибка.</param>
-        [TestCase("", "Телефон не был не было вписан!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
-        [TestCase(null, "Телефон не был не было вписан!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
-        [TestCase("AD", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
-        [TestCase("123ad", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
-        [TestCase("ЯБ", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
-        [TestCase("123ая", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
+        [TestCase("", "Телефон не был не было вписан!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
+        [TestCase(null, "Телефон не был не было вписан!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
+        [TestCase("AD", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
+        [TestCase("123ad", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
+        [TestCase("ЯБ", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
+        [TestCase("123ая", "Номер телефона имеет неверный формат!", TestName = "Ошибка присвоение {0} в ContactVM.Phone с ошибкой {1}")]
         public void Phone_WrongPhone_ThrowException(string value, string message)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Assert
             var ex = Assert.Throws<ArgumentException>(() =>
@@ -221,14 +203,14 @@ namespace UnitTests
         /// Тест на валидацию присвоение Email.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("asd@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("#as@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("@gmail.com", TestName = "Ошибка присвоение {0} в Contact.Email")]
+        [TestCase("asd@gmail", TestName = "Ошибка присвоение {0} в ContactVM.Email")]
+        [TestCase("@gmail", TestName = "Ошибка присвоение {0} в ContactVM.Email")]
+        [TestCase("#as@gmail", TestName = "Ошибка присвоение {0} в ContactVM.Email")]
+        [TestCase("@gmail.com", TestName = "Ошибка присвоение {0} в ContactVM.Email")]
         public void Email_WrongEmail_ThrowException(string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Assert
             Assert.Throws<ArgumentException>(() =>
@@ -242,12 +224,12 @@ namespace UnitTests
         /// Тест на валидацию присвоение Vk.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Vk")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Vk")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в ContactVM.Vk")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в ContactVM.Vk")]
         public void Vk_WrongVk_ThrowException(string value)
         {
             // SetUp
-            var contact = new Contact();
+            var contact = new ContactVM();
             
             // Assert
             Assert.Throws<ArgumentException>(() =>
