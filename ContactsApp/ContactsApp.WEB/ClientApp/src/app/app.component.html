@@ -5,7 +5,6 @@
         <table class="table" *ngIf="tableMode; else edit">
             <thead>
                 <tr>
-                    <td></td>
                     <td>
                         <h3>Контакты</h3>
                     </td>
@@ -14,7 +13,6 @@
             <tbody class="tbody">
                 <tr *ngFor="let c of contacts"
                 (click)="showContact(c)">
-                        <td>{{c?.id}}</td>  
                         <td>{{c?.name}} {{c?.surname}}</td>
                 </tr>
             </tbody>
@@ -123,17 +121,18 @@
 <ng-template #edit>
     <div class="modal mmodal">
         <div class="modal-body mmodal-body">
+            <div class="div-scroll">
             <h3 class="center">Контакт
             <button type="button" class="close" aria-label="Close" (click)="cancel()">
                 <span aria-hidden="true">×</span>
             </button>
             </h3>
+
             <form #contactForm="ngForm">
-                <table class="table">
+                <table class="modal-table">
                     <tbody>
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
+                        <div class="form-group">
                             <label>Имя</label>
                             <input 
                                 type="text" 
@@ -142,22 +141,17 @@
                                 name="name" 
                                 #name="ngModel" 
                                 required/>
-                            </td>
-                            <td>
-                            <label></label>
+
                             <div 
-                            [hidden]="name.valid || name.untouched || (name.pristine && name.value !== null) || (!name.untouched && name.value !== null)" 
-                            class="alert alert-danger questionnaire-td">
+                            [hidden]="name.valid || name.untouched || name.pristine" class="alert alert-danger">
                                 Обязательное для заполнения
                             </div>
-                            </td>
                         </div>
                     </tr>
         
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
-                                <label>Фамилия</label>
+                        <div class="form-group">
+                                <label>Фамилия</label> 
                                 <input 
                                     type="text" 
                                     [(ngModel)]="contact.surname" 
@@ -165,20 +159,16 @@
                                     name="surname" 
                                     #surname="ngModel" 
                                     required />
-                            </td>
-                            <td>
-                                <label></label>
-                                <div [hidden]="surname.valid || surname.untouched || surname.pristine" class="alert alert-danger questionnaire-td">
+
+                                <div [hidden]="surname.valid || surname.untouched || surname.pristine" class="alert alert-danger">
                                     Обязательное для заполнения
                                 </div>
-                            </td>
                         </div>
                     </tr>
         
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
-                            <label>День рождения</label>
+                        <div class="form-group">
+                            <label title="Пример: 16.10.1999">День рождения</label>
                             <input 
                                 type="date" 
                                 [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
@@ -187,19 +177,15 @@
                                 name="date" 
                                 #date="ngModel" 
                                 required/>
-                            </td>
-                            <td>
-                                <label></label>
-                                <div [hidden]="date.valid || date.untouched || date.pristine" class="alert alert-danger questionnaire-td">
+                           
+                                <div [hidden]="date.valid || date.untouched || date.pristine" class="alert alert-danger">
                                     Обязательное для заполнения
                                 </div>
-                            </td>
                         </div>
                     </tr>
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
-                                <label>Номер телефона</label>
+                        <div class="form-group">
+                                <label title="Пример: 89999999999">Номер телефона</label>
                                 <input 
                                     type="text" 
                                     [(ngModel)]="contact.phone" 
@@ -208,20 +194,17 @@
                                     #phone="ngModel" 
                                     required 
                                     pattern="[0-9]{11}"/>
-                            </td>
-                            <td>
-                                <label></label>
-                                <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger questionnaire-td">
+                          
+                                <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger">
                                     Неверный формат
                                 </div>
-                            </td>
+                           
                         </div>
                     </tr>
         
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
-                                <label>Email</label>
+                        <div class="form-group">
+                                <label title="test@pochta.com">Email</label>
                                 <input 
                                     type="email" 
                                     [(ngModel)]="contact.email" 
@@ -229,40 +212,36 @@
                                     class="form-control" 
                                     #email="ngModel" 
                                     email/>
-                            </td>
-                            <td>
-                                <label></label>
-                                <div [hidden]="email.valid || email.untouched || email.pristine" class="alert alert-danger questionnaire-td">
+                    
+                                <div [hidden]="email.valid || email.untouched || email.pristine" class="alert alert-danger">
                                     Неверный формат
                                 </div>
-                            </td>
+                            
                         </div>
                     </tr>
         
                     <tr>
-                        <div class="form-group grid-questionnaire-tr">
-                            <td>
+                        <div class="form-group">
                                 <label>Ссылка Vk</label>
                                 <input 
                                     type="text" 
                                     [(ngModel)]="contact.vk" 
                                     class="form-control"
                                     name="vk"/>
-                            </td>
-                            <td></td>
                         </div>
                     </tr>
         
                     <tr>
                         <div>
                             <!-- <input type="button" value="Сохранить" [disabled]="!contactForm.form.valid" (click)="save()" class="btn btn-success" /> -->
-                            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success" />
-                            <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning" />
+                            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
+                            <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning grid-button" />
                         </div>
                     <tr>
                     </tbody>
                 </table>
                 </form>
+                </div>
             </div>  
         </div>
         <div class="mmodal-background"></div>
