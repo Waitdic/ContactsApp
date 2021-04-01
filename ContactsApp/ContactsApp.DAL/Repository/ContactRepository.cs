@@ -60,9 +60,15 @@ namespace ContactsApp.DAL.Repository
 
         private void CheckFile()
         {
-            if (!File.Exists(FilePart))
+            if (File.Exists(FilePart)) return;
+
+            try
             {
                 File.Create(FilePart).Dispose();
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Проблемы с созданием базы");
             }
         }
 
