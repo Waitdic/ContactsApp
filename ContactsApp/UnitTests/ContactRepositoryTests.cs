@@ -33,7 +33,7 @@ namespace UnitTests
             Initialize();
             
             // Act
-            this.contactRepository.AddContact(new List<Contact>{ this.contact });
+            this.contactRepository.AddContacts(new List<Contact>{ this.contact });
             var result =this.contactRepository.GetContacts();
             
             // Assert

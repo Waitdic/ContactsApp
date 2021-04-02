@@ -7,12 +7,19 @@ using ContactsApp.BLL.Models;
 
 namespace ContactsApp.WEB.Controllers
 {
+    /// <summary>
+    /// Контроллер работы с контактами в аккаунте.
+    /// </summary>
     [ApiController]
     [Route("api/contacts")]
     public class AccountController : Controller
     {
         private readonly IContactManager contactManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="contactManager">Менеджер контактов.</param>
         public AccountController(IContactManager contactManager)
         {
             this.contactManager = contactManager;

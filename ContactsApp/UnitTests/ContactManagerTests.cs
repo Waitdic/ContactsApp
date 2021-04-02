@@ -38,17 +38,20 @@ namespace UnitTests
         public void AddContact_CorrectResult()
         {
             // SetUp
-            Initialize();
-            var model = this.contactRepository
-                .GetContacts()
-                ?.Where(x => x.Name == this.contact.Name)
-                .ToList();
+            for (var i = 0; i < 100; i++)
+            {
+                Initialize();
+                var model = this.contactRepository
+                    .GetContacts()
+                    ?.Where(x => x.Name == this.contact.Name)
+                    .ToList();
             
-            // Assert
-            Assert.NotNull(model);
-            Assert.AreEqual(model.Count, 1);
-            Assert.AreEqual(model.FirstOrDefault()?.Name, this.contact.Name);
-            Clean();
+                // Assert
+                Assert.NotNull(model);
+                Assert.AreEqual(model.Count, 1);
+                Assert.AreEqual(model.FirstOrDefault()?.Name, this.contact.Name);
+            }
+            // Clean();
         }
         
         /// <summary>

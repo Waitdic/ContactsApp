@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using ContactsApp.DAL.Models;
 
 namespace ContactsApp.BLL.Models
 {
+    /// <summary>
+    /// Класс ViewModel контакта, хранящий информацию о человеке 
+    /// </summary>
     public class ContactVM
     {
         private int? id;
@@ -134,6 +138,44 @@ namespace ContactsApp.BLL.Models
 
                 this.vk = value;
             }
+        }
+        
+        /// <summary>
+        /// Конвертировать из ViewModel в Contact.
+        /// </summary>
+        /// <param name="contact">Объект класса ContactVM.</param>
+        /// <returns>Объект класса Contact.</returns>
+        public Contact FromViewToModel()
+        {
+            return new Contact
+            {
+                Id = this.Id.GetValueOrDefault(),
+                Name = this.Name,
+                Surname = this.Surname,
+                Birthday = this.Birthday,
+                Phone = this.Phone,
+                Email = this.Email,
+                Vk = this.Vk,
+            };
+        }
+
+        /// <summary>
+        /// Конвертировать из Contact в ViewModel.
+        /// </summary>
+        /// <param name="contact">Объект класса Contact.</param>
+        /// <returns>Объект класса ContactVM.</returns>
+        public ContactVM FromModelToView(Contact contact)
+        {
+            return new ContactVM
+            {
+                Id = contact.Id,
+                Name = contact.Name,
+                Surname = contact.Surname,
+                Birthday = contact.Birthday,
+                Phone = contact.Phone,
+                Email = contact.Email,
+                Vk = contact.Vk,
+            };
         }
     }
 }

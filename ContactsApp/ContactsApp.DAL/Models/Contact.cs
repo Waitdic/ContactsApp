@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace ContactsApp.DAL.Models
 {
+    /// <summary>
+    /// Класс контакта, хранящий информацию о человеке 
+    /// </summary>
     public class Contact
     {
         private int id;

@@ -4,7 +4,7 @@ using ContactsApp.BLL.Models;
 namespace ContactsApp.BLL.Interfaces
 {
     /// <summary>
-    /// 
+    /// Интерфейс менеджера, реализующего бизнесс логику обработки данным Contact
     /// </summary>
     public interface IContactManager
     {

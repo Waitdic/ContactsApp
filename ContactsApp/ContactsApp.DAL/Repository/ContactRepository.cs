@@ -7,16 +7,21 @@ using System.Configuration;
 
 namespace ContactsApp.DAL.Repository
 {
+    /// <summary>
+    /// Класс репозитория для работы с данными бд.
+    /// </summary>
     public class ContactRepository : IContactRepository
     {
         static string FilePart = GetFilePath();
 
-        public void AddContact(List<Contact> contact)
+        /// <inheritdoc cref="IContactManager"/>
+        public void AddContacts(List<Contact> contacts)
         {
             this.CheckFile();
-            this.Serializer(contact);
+            this.Serializer(contacts);
         }
 
+        /// <inheritdoc cref="IContactManager"/>
         public List<Contact> GetContacts()
         {
             this.CheckFile();
@@ -24,7 +29,12 @@ namespace ContactsApp.DAL.Repository
             return contacts?.Count != 0 ? contacts : null;
         }
 
-        private void Serializer(List<Contact> contact)
+        /// <summary>
+        /// Метод сериализации списка контактов, загружаемых в файл.
+        /// </summary>
+        /// <param name="contacts">Список контактов.</param>
+        /// <exception cref="Exception"></exception>
+        private void Serializer(List<Contact> contacts)
         {
             try
             {
@@ -32,7 +42,7 @@ namespace ContactsApp.DAL.Repository
                 using StreamWriter sw = new StreamWriter(FilePart);
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
-                    serializer.Serialize(writer, contact);
+                    serializer.Serialize(writer, contacts);
                 }
             }
             catch (Exception e)
@@ -41,6 +51,11 @@ namespace ContactsApp.DAL.Repository
             }
         }
 
+        /// <summary>
+        /// Метод десериализации контактов, хранящихся в файле.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         private List<Contact> Deserializer()
         {
             try
@@ -58,6 +73,10 @@ namespace ContactsApp.DAL.Repository
             }
         }
 
+        /// <summary>
+        /// Метод для проверки налиция файла бд (файла .txt)
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
         private void CheckFile()
         {
             if (File.Exists(FilePart)) return;
@@ -72,6 +91,10 @@ namespace ContactsApp.DAL.Repository
             }
         }
 
+        /// <summary>
+        /// Метод для постройки пути до файла бд (файл .txt)
+        /// </summary>
+        /// <returns>Полный путь до файла.</returns>
         private static string GetFilePath()
         {
             var currentConfig = ConfigurationManager.AppSettings.Get("DbFolder");
