@@ -1,26 +1,20 @@
-<h1>Список контанктов</h1>
+<h1 class="center">Список контанктов</h1>
 <div class="grid-lable">
     <div class="contact-style table-list">
+        <h3 class="center">Контакты</h3>
         <div class="table-scroll">
-        <table class="table" *ngIf="tableMode; else edit">
-            <thead>
-                <tr>
-                    <td>
-                        <h3>Контакты</h3>
-                    </td>
-                </tr>
-            </thead>
-            <tbody class="tbody">
-                <tr *ngFor="let c of contacts"
-                (click)="showContact(c)">
-                        <td>{{c?.name}} {{c?.surname}}</td>
-                </tr>
-            </tbody>
-            <button class="btn btn-success" (click)="add()">Добавить</button>
-        </table>
+            <table class="table" *ngIf="tableMode; else edit">
+                <tbody class="tbody">
+                    <tr *ngFor="let c of contacts"
+                    (click)="showContact(c)">
+                            <td>{{c?.name}} {{c?.surname}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
     </div>
-    </div>
-    
+    <button class="btn btn-success grid-button" (click)="add()">Добавить</button>
     <div class="contact-style table-questionnaire">
         <table class="table">
             <tbody>
