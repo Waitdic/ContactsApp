@@ -12,9 +12,8 @@
                 </tbody>
             </table>
         </div>
-        
+        <button class="btn btn-success grid-button" (click)="add()">Добавить</button>
     </div>
-    <button class="btn btn-success grid-button" (click)="add()">Добавить</button>
     <div class="contact-style table-questionnaire">
         <table class="table">
             <tbody>
@@ -190,9 +189,8 @@
                                     pattern="[0-9]{11}"/>
                           
                                 <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger">
-                                    Неверный формат
+                                    Неверный формат. Пример: 89999999999
                                 </div>
-                           
                         </div>
                     </tr>
         
@@ -207,10 +205,9 @@
                                     #email="ngModel" 
                                     email/>
                     
-                                <div [hidden]="email.valid || email.untouched || email.pristine" class="alert alert-danger">
-                                    Неверный формат
+                                <div [hidden]="email.valid || date.untouched || date.pristine" class="alert alert-danger">
+                                    Неверный формат. Пример: test@pochta.com
                                 </div>
-                            
                         </div>
                     </tr>
         
@@ -227,7 +224,6 @@
         
                     <tr>
                         <div>
-                            <!-- <input type="button" value="Сохранить" [disabled]="!contactForm.form.valid" (click)="save()" class="btn btn-success" /> -->
                             <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
                             <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning grid-button" />
                         </div>
