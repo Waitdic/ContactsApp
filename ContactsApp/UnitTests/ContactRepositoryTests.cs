@@ -27,7 +27,7 @@ namespace UnitTests
         /// Тест на добавление контакта в бд.
         /// </summary>
         [Test]
-        public void GetContacts_CorrectResult()
+        public void GetContacts_Contacts_CorrectResult()
         {
             // SetUp
             Initialize();

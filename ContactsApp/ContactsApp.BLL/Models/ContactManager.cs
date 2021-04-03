@@ -17,7 +17,7 @@ namespace ContactsApp.BLL.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactManager"/> class.
         /// </summary>
-        /// <param name="contactRepository">Репозиторий контактов.</param>
+        /// <param name="contactRepository">Репозиторий для класса Contact.</param>
         public ContactManager(IContactRepository contactRepository)
         {
             this.contactRepository = contactRepository;
@@ -82,52 +82,19 @@ namespace ContactsApp.BLL.Models
         /// <inheritdoc cref="IContactManager"/>
         public List<ContactVM> GetContacts()
         {
-            /*return this.contactRepository.GetContacts()
-                ?.Select(this.FromModelToViewModel)
-                .ToList();
-                */
-            
             return this.contactRepository.GetContacts()
-                ?.Select(x => new ContactVM().FromModelToView(x))
+                ?.Select(ContactVM.FromModelToView)
                 .ToList();
         }
 
         /// <inheritdoc cref="IContactManager"/>
         public ContactVM GetContactById(int id)
         {
-            return this.FromModelToViewModel
+            return ContactVM.FromModelToView
             (this.contactRepository
                 .GetContacts()
                 ?.FirstOrDefault(x => x.Id == id)
-                );
-        }
-
-        /*private Contact FromViewToModel(ContactVM contact)
-        {
-            return new Contact
-            {
-                Id = contact.Id.Value,
-                Name = contact.Name,
-                Surname = contact.Surname,
-                Birthday = contact.Birthday,
-                Phone = contact.Phone,
-                Email = contact.Email,
-                Vk = contact.Vk,
-            };
-        }*/
-
-        private ContactVM FromModelToViewModel(Contact contact)
-        {
-            return new ContactVM
-            {
-                Id = contact.Id,
-                Name = contact.Name,
-                Surname = contact.Surname,
-                Birthday = contact.Birthday,
-                Phone = contact.Phone,
-                Email = contact.Email,
-                Vk = contact.Vk,
-            };
+            );
         }
 
         /// <summary>

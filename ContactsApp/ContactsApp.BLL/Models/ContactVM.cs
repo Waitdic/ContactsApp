@@ -164,7 +164,7 @@ namespace ContactsApp.BLL.Models
         /// </summary>
         /// <param name="contact">Объект класса Contact.</param>
         /// <returns>Объект класса ContactVM.</returns>
-        public ContactVM FromModelToView(Contact contact)
+        public static ContactVM FromModelToView(Contact contact)
         {
             return new ContactVM
             {
