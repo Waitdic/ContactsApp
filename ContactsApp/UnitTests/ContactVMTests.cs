@@ -159,7 +159,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение даты.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на валидацию присвоение даты. Негативный тест.")]
         public void Birthday_WrongBirthday_ThrowException()
         {
             // SetUp
