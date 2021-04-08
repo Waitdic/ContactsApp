@@ -17,7 +17,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
-        [TestCase("Name", "Name", TestName = PropertyNameTest)]
+        [TestCase("Name", "Name", TestName = PropertyNameTest, Description = "Позитивный тест.")]
         public void Name_CorrectName(string field, string value)
         {
             // SetUp
@@ -35,7 +35,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
-        [TestCase("Surname", "Surname", TestName = PropertyNameTest)]
+        [TestCase("Surname", "Surname", TestName = PropertyNameTest, Description = "Позитивный тест.")]
         public void Surname_CorrectSurname(string field, string value)
         {
             // SetUp
@@ -53,7 +53,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
-        [TestCase("Phone", "81111111111", TestName = PropertyNameTest)]
+        [TestCase("Phone", "81111111111", TestName = PropertyNameTest, Description = "Позитивный тест.")]
         public void Phone_CorrectPhone(string field, string value)
         {
             // SetUp
@@ -71,7 +71,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
-        [TestCase("Email", "danis161616@yandex.ru", TestName = PropertyNameTest)]
+        [TestCase("Email", "danis161616@yandex.ru", TestName = PropertyNameTest, Description = "Позитивный тест.")]
         public void Email_CorrectEmail(string field, string value)
         {
             // SetUp
@@ -89,7 +89,7 @@ namespace UnitTests
         /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
-        [TestCase("", "daniska1616", TestName = PropertyNameTest)]
+        [TestCase("", "daniska1616", TestName = PropertyNameTest, Description = "Позитивный тест.")]
         public void Vk_CorrectVk(string field, string value)
         {
             // SetUp
@@ -105,7 +105,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на присваивание корректной даты рождения в Contact.Birthday.
         /// </summary>
-        [Test]
+        [Test, Description("Позитивный тест.")]
         public void Birthday_CorrectBirthday()
         {
             // SetUp
@@ -122,7 +122,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение Id.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на валидацию присвоение Id. Негативный тест.")]
         public void Id_WrongId_ThrowsException()
         {
             // Setup
@@ -140,8 +140,8 @@ namespace UnitTests
         /// Тест на валидацию присвоение имени.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Name")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Name")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Name,", Description = "Негативный тест.")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Name", Description = "Негативный тест.")]
         public void Name_WrongName_ThrowException(string value)
         {
             // SetUp
@@ -159,8 +159,8 @@ namespace UnitTests
         /// Тест на валидацию присвоение фамилии.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Surname")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Surname")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Surname", Description = "Негативный тест.")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Surname", Description = "Негативный тест.")]
         public void Surname_WrongSurname_ThrowException(string value)
         {
             // SetUp
@@ -177,7 +177,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию присвоение даты.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на валидацию присвоение даты. Негативный тест.")]
         public void Birthday_WrongBirthday_ThrowException()
         {
             // SetUp
@@ -221,10 +221,10 @@ namespace UnitTests
         /// Тест на валидацию присвоение Email.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("asd@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("#as@gmail", TestName = "Ошибка присвоение {0} в Contact.Email")]
-        [TestCase("@gmail.com", TestName = "Ошибка присвоение {0} в Contact.Email")]
+        [TestCase("asd@gmail", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
+        [TestCase("@gmail", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
+        [TestCase("#as@gmail", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
+        [TestCase("@gmail.com", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
         public void Email_WrongEmail_ThrowException(string value)
         {
             // SetUp
@@ -242,8 +242,8 @@ namespace UnitTests
         /// Тест на валидацию присвоение Vk.
         /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
-        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Vk")]
-        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Vk")]
+        [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Vk", Description = "Негативный тест.")]
+        [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Vk", Description = "Негативный тест.")]
         public void Vk_WrongVk_ThrowException(string value)
         {
             // SetUp

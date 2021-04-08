@@ -30,7 +30,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на создание добавления нового контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на создание добавления нового контакта. Позитивный тест.")]
         public void AddContact_NewContact_CorrectResult()    
         {
             // SetUp
@@ -55,7 +55,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на получения списка контактов.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на получения списка контактов. Позитивный тест.")]
         public void GetContacts_CorrectResult()
         {
             // SetUp
@@ -76,7 +76,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на редактирование контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на редактирование контакта. Позитивный тест.")]
         public void EditContact_Contact_CorrectResult()
         {
             // SetUp
@@ -110,7 +110,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на получение контакта по id.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на получение контакта по id. Позитивный тест.")]
         public void GetContact_Id_CorrectResult()
         {
             // SetUp
@@ -130,7 +130,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на удаление контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на удаление контакта. Позитивный тест.")]
         public void DeleteContact_Id_CorrectResult()
         {
             // SetUp

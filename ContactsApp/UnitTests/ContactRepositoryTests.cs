@@ -26,7 +26,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на добавление контакта в бд.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на добавление контакта в бд. Позитивный тест.")]
         public void GetContacts_Contacts_CorrectResult()
         {
             // SetUp

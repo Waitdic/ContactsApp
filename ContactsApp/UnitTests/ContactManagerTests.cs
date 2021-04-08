@@ -34,7 +34,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на добавление контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на добавление контакта. Позитивный тест.")]
         public void AddContact_CorrectResult()
         {
             // SetUp
@@ -57,7 +57,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на валидацию добавления контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на валидацию добавления контакта. Негативный тест.")]
         public void AddContact_NullObject_ThrowException()
         {
             // SetUp
@@ -75,7 +75,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на изменение контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на изменение контакта. Позитивный тест.")]
         public void EditContact_Contact_CorrectResult()
         {
             // SetUp
@@ -110,7 +110,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на изменение контакта с несуществующим Id.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на изменение контакта с несуществующим Id. Негативный тест.")]
         public void EditContact_NonExistentId_ThrowException()
         {
             // SetUp
@@ -145,7 +145,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на изменение несуществующего контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на изменение несуществующего контакта. Негативный тест.")]
         public void EditContact_NonExistentContact_ThrowException()
         {
             // SetUp
@@ -175,7 +175,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на удаление контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на удаление контакта. Позитивный тест.")]
         public void DeleteContact_Id_CorrectResult()
         {
             // SetUp
@@ -201,7 +201,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на изменение контакта с несуществующим Id.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на изменение контакта с несуществующим Id. Негативный тест.")]
         public void DeleteContact_NonExistentId_ThrowException()
         {
             // SetUp
@@ -226,7 +226,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на изменение несуществующего контакта.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на изменение несуществующего контакта. Негативный тест.")]
         public void DeleteContact_NonExistentContact_ThrowException()
         {
             // SetUp
@@ -246,7 +246,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на получение списка контактов.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на получение списка контактов. Позитивный тест.")]
         public void GetContacts_CorrectResult()
         {
             // SetUp
@@ -271,7 +271,7 @@ namespace UnitTests
         /// <summary>
         /// Тест на поиск контакта по Id.
         /// </summary>
-        [Test]
+        [Test, Description("Тест на поиск контакта по Id. Позитивный тест.")]
         public void GetContact_Id_CorrectResult()
         {
             // SetUp
