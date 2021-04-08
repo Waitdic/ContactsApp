@@ -29,7 +29,7 @@ namespace ContactsApp.DAL.Repository
         /// <inheritdoc cref="IContactRepository"/>
         public void AddContact(Contact contact)
         {
-            this.db.Contacts.Add(contact);
+            var test = this.db.Contacts.Add(contact);
             this.SaveChange();
         }
 
@@ -70,7 +70,7 @@ namespace ContactsApp.DAL.Repository
         {
             try
             {
-                db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (SqlException e)
             {
