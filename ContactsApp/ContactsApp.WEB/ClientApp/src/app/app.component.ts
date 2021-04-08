@@ -50,6 +50,10 @@ export class AppComponent implements OnInit  {
       this.contact = p;
     }
 
+    search(str: String) {
+       this.dataService.search(str).subscribe((data: Contact[]) => this.contacts = data);
+      }
+
    add() {
         this.cancel();
         this.tableMode = false;
