@@ -11,12 +11,47 @@ namespace ContactsApp.DAL.Repository
         /// <summary>
         /// Добавить контакты.
         /// </summary>
+        /// <param name="contact">Contact.</param>
+        void AddContact(Contact contact);
+        
+        /// <summary>
+        /// Изменить контакт.
+        /// </summary>
+        /// <param name="contact">Contact.</param>
+        void EditContact(Contact contact);
+
+        /// <summary>
+        /// Получить контакт.
+        /// </summary>
+        /// <param name="id">Id.</param>
+        Contact GetContact(int id);
+        
+        /// <summary>
+        /// Получить список контактов.
+        /// </summary>
+        List<Contact> GetContacts();
+        
+        /// <summary>
+        /// Добавить контакты.
+        /// </summary>
+        /// <param name="id">Id контакта.</param>
+        void DeleteContact(int id);
+
+        /// <summary>
+        /// Проверить наличие элемента в базе.
+        /// </summary>
+        /// <param name="id">Id контакта.</param>
+        public bool CheckAvailability(int id);
+
+        /*/// <summary>
+        /// Добавить контакты.
+        /// </summary>
         /// <param name="contacts">Contact.</param>
         void AddContacts(List<Contact> contacts);
 
         /// <summary>
         /// Получить список контактов.
         /// </summary>
-        List<Contact> GetContacts();
+        List<Contact> GetContacts();*/
     }
 }

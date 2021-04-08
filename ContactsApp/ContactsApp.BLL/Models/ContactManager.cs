@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using ContactsApp.BLL.Interfaces;
-using ContactsApp.DAL.Models;
 using ContactsApp.DAL.Repository;
 
 namespace ContactsApp.BLL.Models
@@ -31,52 +30,23 @@ namespace ContactsApp.BLL.Models
                 throw new ArgumentException("Contact model is null!");
             }
             
-            var models = this.contactRepository.GetContacts();
-
-            if (models == null)
-            {
-                contact.Id = 0;
-                var entity = contact.FromViewToModel();
-                this.contactRepository.AddContacts(new List<Contact> { entity });
-            }
-            else
-            {
-                contact.Id = models.OrderBy(x => x.Id).Last().Id + 1;
-                var entity = contact.FromViewToModel();
-                models.Add(entity);
-
-                this.contactRepository.AddContacts(models);
-            }
+            this.contactRepository.AddContact(contact.FromViewToModel());
         }
 
         /// <inheritdoc cref="IContactManager"/>
         public void EditContact(ContactVM contact)
         {
-            var contacts = this.contactRepository.GetContacts();
-            this.CheckContactsListForNull(contacts);
-            this.CheckExistenceId(contact.Id.GetValueOrDefault(), contacts);
+            this.CheckNullId(contact.Id);
+            this.CheckExistenceId(contact.Id.GetValueOrDefault());
 
-            var entity = contact.FromViewToModel();
-            entity.Id = contact.Id.Value;
-
-            var deletedModel = contacts.AsEnumerable().FirstOrDefault(x => x.Id == contact.Id.Value);
-            contacts.Remove(deletedModel);
-            contacts.Add(entity);
-
-            this.contactRepository.AddContacts(contacts);
+            this.contactRepository.EditContact(contact.FromViewToModel());
         }
 
         /// <inheritdoc cref="IContactManager"/>
         public void DeleteContact(int id)
         {
-            var contacts = this.contactRepository.GetContacts();
-            this.CheckContactsListForNull(contacts);
-            this.CheckExistenceId(id, contacts);
-
-            var contact = contacts.FirstOrDefault(i => i.Id == id);
-            contacts.Remove(contact);
-
-            this.contactRepository.AddContacts(contacts);
+            this.CheckExistenceId(id);
+            this.contactRepository.DeleteContact(id);
         }
 
         /// <inheritdoc cref="IContactManager"/>
@@ -90,35 +60,31 @@ namespace ContactsApp.BLL.Models
         /// <inheritdoc cref="IContactManager"/>
         public ContactVM GetContactById(int id)
         {
-            return ContactVM.FromModelToView
-            (this.contactRepository
-                .GetContacts()
-                ?.FirstOrDefault(x => x.Id == id)
-            );
+            this.CheckExistenceId(id);
+            return ContactVM.FromModelToView(this.contactRepository.GetContact(id));
         }
 
         /// <summary>
-        /// Метод для проверки списка контактов на null.
+        /// Метод для проверки Id на null и .
         /// </summary>
-        /// <param name="contacts">Список контактов.</param>
-        /// <exception cref="ArgumentException">Contacts not found.</exception>
-        private void CheckContactsListForNull(List<Contact> contacts)
+        /// <param name="id">Id контакта.</param>
+        /// <exception cref="ArgumentException">Contact Id not found.</exception>
+        private void CheckNullId(int? id)
         {
-            if (contacts == null)
+            if (id == null)
             {
-                throw new ArgumentException("Contacts not found");
+                throw new ArgumentException("Contact Id not found");
             }
         }
         
         /// <summary>
-        /// Метод для проверки Id на null и наличие его в общем списке контактов.
+        /// Метод для проверки наличие его в общем списке контактов.
         /// </summary>
         /// <param name="id">Id контакта.</param>
-        /// <param name="contacts">Список контактов.</param>
         /// <exception cref="ArgumentException">Contact not found.</exception>
-        private void CheckExistenceId(int? id, List<Contact> contacts) 
+        private void CheckExistenceId(int id)
         {
-            if (id == null || contacts.All(x => x.Id != id.GetValueOrDefault()))
+            if (!this.contactRepository.CheckAvailability(id))
             {
                 throw new ArgumentException("Contact not found");
             }

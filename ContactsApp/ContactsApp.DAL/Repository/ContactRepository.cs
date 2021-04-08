@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using ContactsApp.DAL.Models;
 using Newtonsoft.Json;
 using System.Configuration;
+using System.Data.SqlTypes;
+using System.Linq;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContactsApp.DAL.Repository
 {
@@ -12,7 +15,74 @@ namespace ContactsApp.DAL.Repository
     /// </summary>
     public class ContactRepository : IContactRepository
     {
-        static string FilePart = GetFilePath();
+        private readonly Context db;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactRepository"/> class.
+        /// </summary>
+        /// <param name="context">Контекст базы данных.</param>
+        public ContactRepository(Context context)
+        {
+            this.db = context;
+        }
+        
+        /// <inheritdoc cref="IContactRepository"/>
+        public void AddContact(Contact contact)
+        {
+            this.db.Contacts.Add(contact);
+            this.SaveChange();
+        }
+
+        /// <inheritdoc cref="IContactRepository"/>
+        public List<Contact> GetContacts()
+        {
+            return this.db.Contacts.ToList();
+        }
+
+        /// <inheritdoc cref="IContactRepository"/>
+        public Contact GetContact(int id)
+        {
+            return this.db.Contacts.AsQueryable().FirstOrDefault(x => x.Id == id);
+        }
+
+        /// <inheritdoc cref="IContactRepository"/>
+        public void DeleteContact(int id)
+        {
+            var contact = this.db.Contacts.AsQueryable().FirstOrDefault(x => x.Id == id);
+            db.Contacts.Remove(contact);
+            this.SaveChange();
+        }
+
+        /// <inheritdoc cref="IContactRepository"/>
+        public void EditContact(Contact contact)
+        {
+            db.Entry(contact).State = EntityState.Modified;
+            this.SaveChange();
+        }
+
+        /// <inheritdoc cref="IContactRepository"/>
+        public bool CheckAvailability(int id)
+        {
+            return this.db.Contacts.Any(x => x.Id == id);
+        }
+        
+        private void SaveChange()
+        {
+            try
+            {
+                db.SaveChangesAsync();
+            }
+            catch (SqlException e)
+            {
+                throw new SqlTypeException("Ошибка при сохранение данных. Проблема: " + e.Message) ;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        /*static string FilePart = GetFilePath();
 
         /// <inheritdoc cref="IContactManager"/>
         public void AddContacts(List<Contact> contacts)
@@ -99,6 +169,6 @@ namespace ContactsApp.DAL.Repository
         {
             var currentConfig = ConfigurationManager.AppSettings.Get("DbFolder");
             return Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).FullName, currentConfig);
-        }
+        }*/
     }
 }
