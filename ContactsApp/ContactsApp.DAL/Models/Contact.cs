@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
 namespace ContactsApp.DAL.Models
@@ -36,6 +37,7 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Имя.
         /// </summary>
+        [Required]
         public string Name
         {
             get => this.name;
@@ -53,6 +55,7 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Фамилия.
         /// </summary>
+        [Required]
         public string Surname
         {
             get => this.surname;
@@ -70,6 +73,7 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Дата рождения.
         /// </summary>
+        [Required]
         public DateTime Birthday
         {
             get => this.birthday;
@@ -87,6 +91,7 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Телефонный номер.
         /// </summary>
+        [Required]
         public string Phone
         {
             get => this.phone;
@@ -109,6 +114,7 @@ namespace ContactsApp.DAL.Models
         /// <summary>
         /// Электронная почта.
         /// </summary>
+        [Required]
         public string Email
         {
             get => this.email;
