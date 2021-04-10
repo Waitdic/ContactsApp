@@ -3,7 +3,7 @@
     <div class="contact-style table-list">
         <div class="search-row-div">
             <h3 class="center head">Контакты</h3>
-            <input type="text" class="search" placeholder="Поиск" [(ngModel)]="searchString" >
+            <input type="text" class="search" [(ngModel)]="searchString" placeholder="Поиск" (ngModelChange)="search()">
         </div>
         <div class="table-scroll">
             <table class="table" *ngIf="tableMode; else edit">
