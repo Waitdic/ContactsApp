@@ -1,9 +1,6 @@
 ﻿import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from './data.service';
 import { Contact } from './contact';
-import { checkServerIdentity } from 'tls';
-import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
  
 @Component({
     selector: 'app',
