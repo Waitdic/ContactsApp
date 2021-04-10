@@ -1,8 +1,6 @@
 ﻿import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from './data.service';
 import { Contact } from './contact';
-import { checkServerIdentity } from 'tls';
  
 @Component({
     selector: 'app',
@@ -16,6 +14,7 @@ export class AppComponent implements OnInit  {
     contacts: Contact[];         
     tableMode: boolean = true;
     searchString: string;
+    originalContacts: Contact[]; 
 
     constructor(private dataService: DataService,) { }
  
@@ -25,13 +24,19 @@ export class AppComponent implements OnInit  {
     
     loadContacts() {
         this.dataService.getContacts()
-            .subscribe((data: Contact[]) => this.contacts = data);
-    }
+            .subscribe((data: Contact[]) => {
+                this.contacts = data; 
+                this.originalContacts = data
+            });
+        }
    
     save() {
         if (this.contact.id == null) {
             this.dataService.addContact(this.contact)
-                .subscribe((data: Contact[]) => this.contacts = data);
+                .subscribe((data: Contact[]) => {
+                    this.contacts = data; 
+                    this.originalContacts = data
+                });
         } else {
             this.dataService.editContact(this.contact)
                 .subscribe(data => this.loadContacts());
@@ -48,6 +53,18 @@ export class AppComponent implements OnInit  {
 
     showContact(p: Contact) {
       this.contact = p;
+    }
+
+    search() {
+       if (this.originalContacts !== null) {
+            this.contacts = [];
+            this.originalContacts.forEach(o => {
+                var substr = this.searchString.replace(/\s/g, "").toLocaleLowerCase();
+                if ((o.name + o.surname).replace(/\s/g, "").toLowerCase().includes(substr)) {
+                    this.contacts.push(o);
+                }
+            });
+        }
     }
 
    add() {

@@ -3,12 +3,30 @@ h1 {
     margin-right: 3%;
 }
 
+.search-row-div {
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    grid-template-areas:
+    "a b c";
+}
+
+.search {
+    grid-area: c;
+    height: 26px;
+    width: 120px;
+    padding: 5px;
+    justify-self: end;
+    margin-top: 20px;
+}
+
+.head {
+    grid-area: a;
+}
+
 .grid-lable {
-    /* padding: 2%; */
     display: grid;
     grid-template-columns:  repeat(6, 1fr);
     grid-gap: 10px;
-    /* grid-auto-columns: 400px; */
     grid-template-areas:
     "a a a b b b"
     "a a a b b b";
@@ -16,7 +34,6 @@ h1 {
 
 .grid-questionnaire-tr {    
     display: grid;
-    /* grid-template-columns: 3fr 2fr; */
 }
 
 table {
@@ -30,8 +47,6 @@ table {
 }
 
 .contact-style {
-    /* margin-left: 5px;
-    margin-right: 5px; */
     padding: 3%;
     border: 2px solid black;
     border-radius: 20px 20px 20px 20px;
@@ -46,7 +61,6 @@ table {
     width: 400px;
     height: 600px;
     grid-area: a;
-    /* align-self: center; */
     justify-self: end;
 }
 
@@ -54,7 +68,6 @@ table {
     width: 400px;
     height: 600px;
     grid-area: b;
-    /* align-self: center; */
     justify-self: start;
 }
 
@@ -71,8 +84,6 @@ table {
 
 tbody {
     overflow-y: scroll;
-    /* overflow-y: auto; 
-    max-height: 560px; */
 }
 
 .alert {
@@ -80,7 +91,7 @@ tbody {
     height: 30px;
     line-height:30px;
     padding:0px 15px;
-  }
+}
 
 input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}
 
@@ -88,12 +99,12 @@ input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}
     display: block;
     overflow-y: auto;
 }
+
 .center {
     text-align: center;
 }
- /* this holds the CSS display of the modal */
+
 .mmodal {
-    /* // makes it hover above all elements */
     z-index: 1000;
     position: fixed;
     top: 20px;
@@ -103,7 +114,6 @@ input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}
 }
 .mmodal-body {
     background: #fff;
-    /* margin: 20px; */
     border-radius: 20px 20px 20px 20px;
     border: 3px solid black;
 }
@@ -112,9 +122,7 @@ input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}
     display: grid;
 }
 
-/* // backdrop color */
 .mmodal-background {
-    /* // should be below the .modal but above all other elements */
     z-index: 900;
     position: fixed;
     top: 0;
@@ -122,7 +130,7 @@ input.ng-touched.ng-invalid.ng-dirty {border:solid rgb(218, 73, 73) 2px;}
     bottom: 0;
     left: 0;
     background-color: #000;
-    opacity: 0.95;
+    opacity: 0.90;
 }
 
 .div-scroll {
