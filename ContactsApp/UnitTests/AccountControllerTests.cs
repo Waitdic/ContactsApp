@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Linq;
 using ContactsApp.BLL.Models;
+using ContactsApp.DAL;
 using ContactsApp.DAL.Repository;
 using ContactsApp.WEB.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +15,25 @@ namespace UnitTests
     [TestFixture]
     public class AccountControllerTests
     {
-        private readonly ContactManager contactManager = new ContactManager(new ContactRepository());
-        private readonly AccountController accountController = new AccountController(new ContactManager(new ContactRepository()));
+        private readonly Context db;
+        private readonly ContactManager contactManager;
+        private readonly AccountController accountController;
+
+        public AccountControllerTests(Context context, ContactManager contactManager, AccountController accountController)
+        {
+            this.db = context;
+            this.contactManager = contactManager;
+            this.accountController = accountController;
+        }
         
         private static void Initialize()
         {
-            ConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
+            // trConfigurationManager.AppSettings.Set("DbFolder", @"..\..\json.txt");
         }
         
         private static void Clean()
         {
-            ContactHelper.CleanDb();
+            // ContactHelper.CleanDb();
         }
 
         /// <summary>
@@ -39,7 +48,7 @@ namespace UnitTests
 
             // Act
             this.accountController.AddContact(newContact);
-            var model = this.contactManager.GetContacts().OrderBy(x => x.Id).LastOrDefault();
+            var model = this.contactManager.GetContacts().FirstOrDefault(x => x.Name == newContact.Name);
        
             // Assert
             Assert.NotNull(model);
@@ -59,8 +68,8 @@ namespace UnitTests
         public void GetContacts_CorrectResult()
         {
             // SetUp
-            Initialize();
-            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
+            /*Initialize();
+            this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());*/
             var number = this.contactManager.GetContacts().Count;
             this.contactManager.AddContact(ContactHelper.AddNewContactViewModel());
 

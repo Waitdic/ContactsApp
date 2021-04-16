@@ -8,8 +8,9 @@ namespace UnitTests
 {
     public static class ContactHelper
     {
-        private static readonly ContactManager contactManager = new ContactManager(new ContactRepository());
+        /*private static readonly ContactManager contactManager = new ContactManager(new ContactRepository());
         private static readonly ContactRepository contactRepository = new ContactRepository();
+        */
         
         /// <summary>
         /// Создает заполненный объект класса ContactViewModel.
@@ -35,10 +36,10 @@ namespace UnitTests
         /// <returns>Объект класса Contact.</returns>
         public static Contact AddNewContact()
         {
-            var models = contactRepository.GetContacts();
+            // var models = contactRepository.GetContacts();
             return new Contact()
             {
-                Id = models?.OrderBy(x => x.Id).Last().Id + 1 ?? 0,
+                // Id = models?.OrderBy(x => x.Id).Last().Id + 1 ?? 0,
                 Name = "Name" + Guid.NewGuid().ToString(),
                 Surname = "Surname" + Guid.NewGuid().ToString(),
                 Birthday = DateTime.Now.Date,
@@ -48,7 +49,7 @@ namespace UnitTests
             };
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Очищает базу данных (json.txt).
         /// </summary>
         /// <returns>Объект класса ContactViewModel.</returns>
@@ -59,6 +60,6 @@ namespace UnitTests
             {
                 allContacts.ForEach(x => contactManager.DeleteContact(x));
             }  
-        }
+        }*/
     }
 }
