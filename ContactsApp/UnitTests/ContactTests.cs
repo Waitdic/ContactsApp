@@ -10,7 +10,7 @@ namespace UnitTests
     [TestFixture]
     public class ContactTests
     {
-        private const string PropertyNameTest = "Тестирование присвоения {1} в Contact.{0}";
+        private const string PropertyNameTest = "Тестирование присвоения {1} в Contact. {0}";
 
         /// <summary>
         /// Тест на присваивание корректного имени в Contact.
