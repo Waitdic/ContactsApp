@@ -1,0 +1,241 @@
+<h1 class="center">Список контактов</h1>
+<div class="grid-lable">
+    <div class="contact-style table-list">
+        <div class="search-row-div">
+            <h3 class="center head">Контакты</h3>
+            <input type="text" class="search" [(ngModel)]="searchString" placeholder="Поиск" (ngModelChange)="search()">
+        </div>
+        <div class="table-scroll">
+            <table class="table" *ngIf="tableMode; else edit">
+                <tbody class="tbody">
+                    <tr *ngFor="let c of contacts"
+                    (click)="showContact(c)">
+                            <td>{{c?.name}} {{c?.surname}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-success grid-button" (click)="add()">Добавить</button>
+    </div>
+    <div class="contact-style table-questionnaire">
+        <table class="table">
+            <tbody>
+            <tr>
+            <div class="form-group grid-questionnaire-tr">    
+                    <td>
+                    <label>Имя</label>
+                    <input 
+                        type="text" 
+                        [(ngModel)]="contact.name" 
+                        class="form-control"
+                        disabled="disabled">
+                    </td>
+                    <td></td>
+            </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Фамилия</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.surname" 
+                            class="form-control" 
+                            disabled="disabled"/>
+                    </td>
+                    <td></td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                    <label>День рождения</label>
+                    <input 
+                        type="date" 
+                        [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
+                        class="form-control" 
+                        disabled="disabled"/>
+                    </td>
+                    <td></td>
+                </div>
+            </tr>
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Номер телефона</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.phone" 
+                            class="form-control" 
+                            disabled="disabled"/>
+                    </td>
+                    <td></td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Email</label>
+                        <input 
+                            type="email" 
+                            [(ngModel)]="contact.email" 
+                            class="form-control" 
+                            disabled="disabled"/>
+                    </td>
+                    <td></td>
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group grid-questionnaire-tr">
+                    <td>
+                        <label>Ссылка Vk</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="contact.vk" 
+                            class="form-control"
+                            disabled="disabled" />
+                    </td>
+                    <td></td>
+                </div>
+            </tr>
+
+            <tr>
+                <div>
+                     <input type="button" value="Удалить" (click)="delete()" class="btn btn-danger grid-button" />
+                     <input type="button" value="Изменить" (click)="editContact()" class="btn btn-warning grid-button" />
+                </div>
+            <tr>
+            </tbody>
+    </table>
+    </div>
+</div>
+
+<ng-template #edit>
+    <div class="modal mmodal">
+        <div class="modal-body mmodal-body">
+            <div class="div-scroll">
+            <h3 class="center">Контакт
+            <button type="button" class="close" aria-label="Close" (click)="cancel()">
+                <span aria-hidden="true">×</span>
+            </button>
+            </h3>
+
+            <form #contactForm="ngForm">
+                <table class="modal-table">
+                    <tbody>
+                    <tr>
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input 
+                                type="text" 
+                                [(ngModel)]="contact.name" 
+                                class="form-control" 
+                                name="name" 
+                                #name="ngModel" 
+                                required/>
+
+                            <div 
+                            [hidden]="name.valid || name.untouched || name.pristine" class="alert alert-danger">
+                                Обязательное для заполнения
+                            </div>
+                        </div>
+                    </tr>
+        
+                    <tr>
+                        <div class="form-group">
+                                <label>Фамилия</label> 
+                                <input 
+                                    type="text" 
+                                    [(ngModel)]="contact.surname" 
+                                    class="form-control" 
+                                    name="surname" 
+                                    #surname="ngModel" 
+                                    required />
+
+                                <div [hidden]="surname.valid || surname.untouched || surname.pristine" class="alert alert-danger">
+                                    Обязательное для заполнения
+                                </div>
+                        </div>
+                    </tr>
+        
+                    <tr>
+                        <div class="form-group">
+                            <label title="Пример: 16.10.1999">День рождения</label>
+                            <input 
+                                type="date" 
+                                [ngModel]="contact.birthday | date:'yyyy-MM-dd'" 
+                                (ngModelChange)="contact.birthday = $event" 
+                                class="form-control" 
+                                name="date" 
+                                #date="ngModel" 
+                                required/>
+                           
+                                <div [hidden]="date.valid || date.untouched || date.pristine" class="alert alert-danger">
+                                    Обязательное для заполнения
+                                </div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="form-group">
+                                <label title="Пример: 89999999999">Номер телефона</label>
+                                <input 
+                                    type="text" 
+                                    [(ngModel)]="contact.phone" 
+                                    class="form-control" 
+                                    name="phone" 
+                                    #phone="ngModel" 
+                                    required 
+                                    pattern="[0-9]{11}"/>
+                          
+                                <div [hidden]="phone.valid || phone.untouched || phone.pristine" class="alert alert-danger">
+                                    Неверный формат. Пример: 89999999999
+                                </div>
+                        </div>
+                    </tr>
+        
+                    <tr>
+                        <div class="form-group">
+                                <label title="test@pochta.com">Email</label>
+                                <input 
+                                    type="email" 
+                                    [(ngModel)]="contact.email" 
+                                    name="email"
+                                    class="form-control" 
+                                    #email="ngModel" 
+                                    email/>
+                    
+                                <div [hidden]="email.valid || date.untouched || date.pristine" class="alert alert-danger">
+                                    Неверный формат. Пример: test@pochta.com
+                                </div>
+                        </div>
+                    </tr>
+        
+                    <tr>
+                        <div class="form-group">
+                                <label>Ссылка Vk</label>
+                                <input 
+                                    type="text" 
+                                    [(ngModel)]="contact.vk" 
+                                    class="form-control"
+                                    name="vk"/>
+                        </div>
+                    </tr>
+        
+                    <tr>
+                        <div>
+                            <input type="button" value="Сохранить" (click)="save()" class="btn btn-success grid-button" />
+                            <input type="button" value="Отмена" (click)="cancel()" class="btn btn-warning grid-button" />
+                        </div>
+                    <tr>
+                    </tbody>
+                </table>
+                </form>
+                </div>
+            </div>  
+        </div>
+        <div class="mmodal-background"></div>
+</ng-template>

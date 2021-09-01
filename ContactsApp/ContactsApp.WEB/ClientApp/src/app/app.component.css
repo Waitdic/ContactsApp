@@ -1,0 +1,137 @@
+h1 {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.search-row-div {
+    display: grid;
+    grid-template-columns:  repeat(3, 1fr);
+    grid-template-areas:
+    "a b c";
+}
+
+.search {
+    grid-area: c;
+    height: 26px;
+    width: 120px;
+    padding: 5px;
+    justify-self: end;
+    margin-top: 20px;
+}
+
+.head {
+    grid-area: a;
+}
+
+.grid-lable {
+    display: grid;
+    grid-template-columns:  repeat(6, 1fr);
+    grid-gap: 10px;
+    grid-template-areas:
+    "a a a b b b"
+    "a a a b b b";
+}
+
+.grid-questionnaire-tr {    
+    display: grid;
+}
+
+table {
+    padding: 3%;
+    width: 100%;
+}
+
+.modal-table {
+    padding: 1%;
+    width: 100%;
+}
+
+.contact-style {
+    padding: 3%;
+    border: 2px solid black;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.grid-button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.table-list {
+    width: 400px;
+    height: 600px;
+    grid-area: a;
+    justify-self: end;
+}
+
+.table-questionnaire {
+    width: 400px;
+    height: 600px;
+    grid-area: b;
+    justify-self: start;
+}
+
+.table-scroll {
+    overflow-y: auto; 
+    max-height: 450px;
+  }
+
+
+.questionnaire-td {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+tbody {
+    overflow-y: scroll;
+}
+
+.alert {
+    margin-bottom: 1px;
+    height: 30px;
+    line-height:30px;
+    padding:0px 15px;
+}
+
+input.ng-touched.ng-invalid.ng-dirty {
+    border:solid rgb(218, 73, 73) 2px;
+}
+
+.modal {
+    display: block;
+    overflow-y: auto;
+}
+
+.center {
+    text-align: center;
+}
+
+.mmodal {
+    z-index: 1000;
+    position: fixed;
+    top: 20px;
+    bottom: 20px;
+    margin: auto;
+    width: 400px;
+}
+
+.mmodal-body {
+    background: #fff;
+    border-radius: 20px 20px 20px 20px;
+    border: 3px solid black;
+}
+
+.mmodal-background {
+    z-index: 900;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.90;
+}
+
+.div-scroll {
+    overflow-y: visible;
+}
