@@ -72,30 +72,6 @@ export class AppComponent implements OnInit  {
         this.tableMode = false;
     }
 
-    addMany() {
-        for (var i = 0; i < 220; i++){
-            var date = new Date();
-            date.setDate(date.getDate()-100);
-            var num = this.contacts.length > 0 ? this.contacts[this.contacts.length-1].id + 1 : 0;
-            var newContact = new Contact(
-                null,
-                "TestName" + num,
-                "TestSurname" + num,
-                date,
-                "89235371957",
-                "waitdic161616@yandex.ru",
-                "123"
-            );
-
-            this.dataService.addContact(newContact)
-            .subscribe((data: Contact[]) => {
-                this.contacts = data; 
-                this.originalContacts = data
-            });
-        }
-        this.cancel();
-    }
-
     cancel() {
         this.contact = new Contact();
         this.tableMode = true;
@@ -108,13 +84,5 @@ export class AppComponent implements OnInit  {
                 .subscribe(data => this.loadContacts());
             this.contact = new Contact();
         }
-    }
-
-    deleteMany() {
-        this.contacts.forEach(e => {
-            this.dataService.deleteContact(e.id)
-                .subscribe(data => this.loadContacts());
-            this.contact = new Contact();
-        });
     }
 }
