@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using ContactsApp.BLL.Models;
 using ContactsApp.DAL.Models;
-using ContactsApp.DAL.Repository;
 
 namespace UnitTests
 {
     public static class ContactHelper
     {
-        /*private static readonly ContactManager contactManager = new ContactManager(new ContactRepository());
-        private static readonly ContactRepository contactRepository = new ContactRepository();
-        */
-        
         /// <summary>
         /// Создает заполненный объект класса ContactViewModel.
         /// </summary>
@@ -21,8 +16,8 @@ namespace UnitTests
         {
             return new ContactVM()
             {
-                Name = "Name" + Guid.NewGuid().ToString(),
-                Surname = "Surname" + Guid.NewGuid().ToString(),
+                Name = "Name" + Guid.NewGuid(),
+                Surname = "Surname" + Guid.NewGuid(),
                 Birthday = DateTime.Now.Date,
                 Phone = "89999999999",
                 Vk = "daniska1616",
@@ -36,12 +31,11 @@ namespace UnitTests
         /// <returns>Объект класса Contact.</returns>
         public static Contact AddNewContact()
         {
-            // var models = contactRepository.GetContacts();
-            return new Contact()
+           return new Contact()
             {
-                // Id = models?.OrderBy(x => x.Id).Last().Id + 1 ?? 0,
-                Name = "Name" + Guid.NewGuid().ToString(),
-                Surname = "Surname" + Guid.NewGuid().ToString(),
+                Id = 0,
+                Name = "Name" + 0,
+                Surname = "Surname" + Guid.NewGuid(),
                 Birthday = DateTime.Now.Date,
                 Phone = "81111111111",
                 Vk = "daniska1616",
@@ -49,17 +43,24 @@ namespace UnitTests
             };
         }
 
-        /*/// <summary>
-        /// Очищает базу данных (json.txt).
-        /// </summary>
-        /// <returns>Объект класса ContactViewModel.</returns>
-        public static void CleanDb()
+        public static List<Contact> GetTestContacts()
         {
-            var allContacts = contactRepository.GetContacts()?.Select(x => x.Id).ToList();
-            if (allContacts != null)
+            var contacts = new List<Contact>(3);
+            for(var i = 0; i < 3; i++)
             {
-                allContacts.ForEach(x => contactManager.DeleteContact(x));
-            }  
-        }*/
+                contacts.Add(new Contact
+                {
+                    Id = i,
+                    Name = "Name" + i,
+                    Surname = "Surname" + i,
+                    Birthday = DateTime.Now.Date,
+                    Phone = "81111111111",
+                    Vk = "daniska1616",
+                    Email = "danis161616@yandex.ru",
+                });   
+            }
+
+            return contacts;
+        }
     }
 }

@@ -41,17 +41,6 @@ namespace ContactsApp.DAL.Repository
         /// Проверить наличие элемента в базе.
         /// </summary>
         /// <param name="id">Id контакта.</param>
-        public bool CheckAvailability(int id);
-
-        /*/// <summary>
-        /// Добавить контакты.
-        /// </summary>
-        /// <param name="contacts">Contact.</param>
-        void AddContacts(List<Contact> contacts);
-
-        /// <summary>
-        /// Получить список контактов.
-        /// </summary>
-        List<Contact> GetContacts();*/
+        bool CheckAvailability(int id);
     }
 }

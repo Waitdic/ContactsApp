@@ -11,10 +11,7 @@ namespace UnitTests
     public class ContactTests
     {
         private const string PropertyNameTest = "Тестирование присвоения {1} в Contact. {0}";
-
-        /// <summary>
-        /// Тест на присваивание корректного имени в Contact.
-        /// </summary>
+        
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [TestCase("Name", "Name", TestName = PropertyNameTest, Description = "Позитивный тест.")]
@@ -29,10 +26,7 @@ namespace UnitTests
             // Assert
             Assert.AreEqual(contact.Name, value);
         }
-        
-        /// <summary>
-        /// Тест на присваивание корректной фамилии в Contact.Surname.
-        /// </summary>
+       
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [TestCase("Surname", "Surname", TestName = PropertyNameTest, Description = "Позитивный тест.")]
@@ -48,9 +42,6 @@ namespace UnitTests
             Assert.AreEqual(contact.Surname, value);
         }
         
-        /// <summary>
-        /// Тест на присваивание корректного номера в Contact.Phone.
-        /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [TestCase("Phone", "81111111111", TestName = PropertyNameTest, Description = "Позитивный тест.")]
@@ -66,9 +57,6 @@ namespace UnitTests
             Assert.AreEqual(contact.Phone, value);
         }
         
-        /// <summary>
-        /// Тест на присваивание корректного email в Contact.Email.
-        /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [TestCase("Email", "danis161616@yandex.ru", TestName = PropertyNameTest, Description = "Позитивный тест.")]
@@ -84,9 +72,6 @@ namespace UnitTests
             Assert.AreEqual(contact.Email, value);
         }
         
-        /// <summary>
-        /// Тест на присваивание корректного Vk в Contact.Vk.
-        /// </summary>
         /// <param name="field">Поле класса.</param>
         /// <param name="value">Значение.</param>
         [TestCase("", "daniska1616", TestName = PropertyNameTest, Description = "Позитивный тест.")]
@@ -102,9 +87,6 @@ namespace UnitTests
             Assert.AreEqual(contact.Vk, value);
         }
         
-        /// <summary>
-        /// Тест на присваивание корректной даты рождения в Contact.Birthday.
-        /// </summary>
         [Test, Description("Позитивный тест.")]
         public void Birthday_CorrectBirthday()
         {
@@ -118,10 +100,7 @@ namespace UnitTests
             // Assert
             Assert.AreEqual(contact.Birthday, date);
         }
-
-        /// <summary>
-        /// Тест на валидацию присвоение Id.
-        /// </summary>
+        
         [Test, Description("Тест на валидацию присвоение Id. Негативный тест.")]
         public void Id_WrongId_ThrowsException()
         {
@@ -135,10 +114,7 @@ namespace UnitTests
                 contact.Id = -1;
             });
         }
-
-        /// <summary>
-        /// Тест на валидацию присвоение имени.
-        /// </summary>
+        
         /// <param name="value">Присваиваемая переменная.</param>
         [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Name,", Description = "Негативный тест.")]
         [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Name", Description = "Негативный тест.")]
@@ -155,9 +131,6 @@ namespace UnitTests
             });
         }
         
-        /// <summary>
-        /// Тест на валидацию присвоение фамилии.
-        /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
         [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Surname", Description = "Негативный тест.")]
         [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Surname", Description = "Негативный тест.")]
@@ -174,9 +147,6 @@ namespace UnitTests
             });
         }
         
-        /// <summary>
-        /// Тест на валидацию присвоение даты.
-        /// </summary>
         [Test, Description("Тест на валидацию присвоение даты. Негативный тест.")]
         public void Birthday_WrongBirthday_ThrowException()
         {
@@ -192,9 +162,6 @@ namespace UnitTests
             });
         }
         
-        /// <summary>
-        /// Тест на валидацию присвоение номера.
-        /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
         /// <param name="message">Ошибка.</param>
         [TestCase("", "Телефон не был не было вписан!", TestName = "Ошибка присвоение {0} в Contact.Phone с ошибкой {1}")]
@@ -216,10 +183,7 @@ namespace UnitTests
             }).Message;
             Assert.AreEqual(ex, message);
         }
-
-        /// <summary>
-        /// Тест на валидацию присвоение Email.
-        /// </summary>
+        
         /// <param name="value">Присваиваемая переменная.</param>
         [TestCase("asd@gmail", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
         [TestCase("@gmail", TestName = "Ошибка присвоение {0} в Contact.Email", Description = "Негативный тест.")]
@@ -238,9 +202,6 @@ namespace UnitTests
             });
         }
         
-        /// <summary>
-        /// Тест на валидацию присвоение Vk.
-        /// </summary>
         /// <param name="value">Присваиваемая переменная.</param>
         [TestCase("", TestName = "Ошибка присвоение {0} в Contact.Vk", Description = "Негативный тест.")]
         [TestCase(null, TestName = "Ошибка присвоение {0} в Contact.Vk", Description = "Негативный тест.")]

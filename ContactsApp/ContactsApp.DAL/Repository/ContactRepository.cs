@@ -28,7 +28,7 @@ namespace ContactsApp.DAL.Repository
         public void AddContact(Contact contact)
         {
             var test = this.db.Contacts.Add(contact);
-            this.SaveChange();
+            SaveChange();
         }
 
         /// <inheritdoc cref="IContactRepository"/>
